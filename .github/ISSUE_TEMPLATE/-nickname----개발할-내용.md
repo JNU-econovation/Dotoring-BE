@@ -1,7 +1,7 @@
 ---
-name: "[Nickname] : 개발할 내용"
+name: "✅ FEATURE"
 about: 개발할 내용과 to do list를 작성해주세요.
-title: "✅ FEATURE"
+title: "[Nickname] : 개발할 내용"
 labels: ''
 assignees: ''
 
