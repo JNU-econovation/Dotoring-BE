@@ -4,11 +4,15 @@ import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.enums.DeleteStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Entity
 @Getter
@@ -24,9 +28,9 @@ public class Certification{
     @JoinColumn(name = "MEMBER_FK")
     private Member member;
 
-    private String originalName;
+    private String originalFileName;
 
-    private String saveName;
+    private String saveFileName;
 
     @CreationTimestamp
     @Column(nullable = false, length = 20, updatable = false)
@@ -36,9 +40,26 @@ public class Certification{
 
     private LocalDateTime deletedAt;
 
-    private Integer size;
 
     public void mappingMember(Member member) {
         this.member = member;
+    }
+
+    @Builder
+    public Certification(String originalFileName, String saveFileName, DeleteStatus delete_yn){
+        Certification certification = Certification.builder()
+                .originalFileName(originalFileName)
+                .saveFileName(saveFileName)
+                .delete_yn(DeleteStatus.NO)
+                .build();
+    }
+    public static List<Certification> createCertifications(List<String> originalFileNames, List<String> saveFileNames){
+        return IntStream.range(0, originalFileNames.size())
+                .mapToObj(i -> Certification.builder()
+                        .originalFileName(originalFileNames.get(i))
+                        .saveFileName(saveFileNames.get(i))
+                        .delete_yn(DeleteStatus.NO)
+                        .build())
+                .collect(Collectors.toList());
     }
 }
