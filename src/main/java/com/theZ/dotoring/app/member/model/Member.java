@@ -1,7 +1,7 @@
 package com.theZ.dotoring.app.member.model;
 
 import com.theZ.dotoring.app.certification.model.Certification;
-import com.theZ.dotoring.app.common.CommonEntity;
+import com.theZ.dotoring.app.commonModel.CommonEntity;
 import com.theZ.dotoring.enums.Major;
 import com.theZ.dotoring.enums.Status;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.theZ.dotoring.app.common;
+package com.theZ.dotoring.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

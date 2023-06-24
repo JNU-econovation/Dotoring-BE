@@ -1,4 +1,4 @@
-package com.theZ.dotoring.app.common;
+package com.theZ.dotoring.app.commonModel;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
