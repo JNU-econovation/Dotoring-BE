@@ -7,7 +7,6 @@ import com.theZ.dotoring.app.mento.service.MentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Component
