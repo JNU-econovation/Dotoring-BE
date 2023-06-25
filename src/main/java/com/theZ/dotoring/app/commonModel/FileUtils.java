@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,6 @@ import java.util.UUID;
 
 @Component
 public class FileUtils {
-
 
     private final String rootPath = System.getProperty("user.dir");
 
@@ -35,6 +35,8 @@ public class FileUtils {
                     throw new MaxUploadSizeExceededException(10);
                 }
                 storeFileResult.add(storeFile(multipartFile));
+            }else{
+                throw new FileNotFoundException();
             }
         }
         return storeFileResult;

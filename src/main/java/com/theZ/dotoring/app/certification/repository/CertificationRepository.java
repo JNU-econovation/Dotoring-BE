@@ -7,4 +7,6 @@ import java.util.List;
 import java.util.Locale;
 
 public interface CertificationRepository extends JpaRepository<Certification, Long> {
+
+    List<Certification> findAllByOrdOrderByCreatedAtDesc();
 }

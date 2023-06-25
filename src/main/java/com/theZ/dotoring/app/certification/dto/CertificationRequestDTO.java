@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 public class CertificationRequestDTO {
 
+
     private List<MultipartFile> certificationNames;
     // 첫 번째는 재직 증명서
     // 두 번째는 졸업 증명서
