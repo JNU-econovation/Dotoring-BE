@@ -3,10 +3,12 @@ package com.theZ.dotoring.exception;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
 import com.theZ.dotoring.common.MessageCode;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @RestControllerAdvice
@@ -23,9 +25,33 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ExtentionNotAllowedException.class)
-    public ApiResponse<ApiResponse.FailureBody> handleIOException(ExtentionNotAllowedException extentionNotAllowedException){
-        return ApiResponseGenerator.fail(MessageCode.NOT_ALLOWED_FILE_EXT.getCode(),MessageCode.NOT_ALLOWED_FILE_EXT.getValue(), HttpStatus.BAD_REQUEST);
+    public ApiResponse<ApiResponse.FailureBody> handleIOException(ExtentionNotAllowedException e){
+        return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ApiResponse<ApiResponse.FailureBody> handleIOException(FileNotFoundException fileNotFoundException){
+        return ApiResponseGenerator.fail(MessageCode.FIlE_NOT_FOUND.getCode(),MessageCode.FIlE_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NicknameDuplicateException.class)
+    public ApiResponse<ApiResponse.FailureBody> handleEmailDuplicateException(NicknameDuplicateException e){
+        return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(LoginIdDuplicateException.class)
+    public ApiResponse<ApiResponse.FailureBody> handleEmailDuplicateException(LoginIdDuplicateException e){
+        return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ApiResponse<ApiResponse.FailureBody> handleEmailDuplicateException(ConstraintViolationException e){
+        return ApiResponseGenerator.fail(MessageCode.VALIDATION_FAIL.getCode(),e.getMessage(), HttpStatus.CONFLICT);
+    }
+
+
+
+
 
 
 }
