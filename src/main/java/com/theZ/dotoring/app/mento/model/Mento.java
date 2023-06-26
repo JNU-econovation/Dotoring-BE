@@ -44,6 +44,7 @@ public class Mento extends Member {
                 .email(email)
                 .nickname(nickname)
                 .introduction(introduction)
+                .certifications(certifications)
                 .status(Status.WAIT)
                 .company(company)
                 .careerLevel(careerLevel)
