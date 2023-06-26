@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -45,12 +46,11 @@ public abstract class Member extends CommonEntity {
     private Status status;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
-    private List<Certification> certifications;
+    private List<Certification> certifications = new ArrayList<>();
 
     public void mappingCertification(List<Certification> certifications){
         for(Certification certification : certifications){
             certification.mappingMember(this);
-            this.certifications.add(certification);
         }
     }
 

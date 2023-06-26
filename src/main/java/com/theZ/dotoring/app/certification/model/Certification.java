@@ -47,12 +47,11 @@ public class Certification{
 
     @Builder
     public Certification(String originalFileName, String saveFileName, DeleteStatus delete_yn){
-        Certification certification = Certification.builder()
-                .originalFileName(originalFileName)
-                .saveFileName(saveFileName)
-                .delete_yn(DeleteStatus.NO)
-                .build();
+        this.originalFileName = originalFileName;
+        this.saveFileName = saveFileName;
+        this.delete_yn = delete_yn;
     }
+
     public static List<Certification> createCertifications(List<String> originalFileNames, List<String> saveFileNames){
         return IntStream.range(0, originalFileNames.size())
                 .mapToObj(i -> Certification.builder()

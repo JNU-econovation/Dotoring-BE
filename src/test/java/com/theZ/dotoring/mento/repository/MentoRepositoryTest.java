@@ -21,8 +21,7 @@ public class MentoRepositoryTest {
 
     @Autowired
     private CertificationRepository certificationRepository;
-
-
+    
     @DisplayName("증명서를 먼저 저장한 후에 멘토를 저장 - CascadeType.PERSIST 테스트")
     @Test
     void saveMember(){
@@ -51,13 +50,11 @@ public class MentoRepositoryTest {
 
         // when
 
-        Mento mento = Mento.createMento("sonny12", "sonny1233@", "sonny12@naver.com", "sonny", "안녕하세요, 현재 dotoring 프로젝트를 개발하고 있는 백엔드 개발자 sonny입니다.", List.of(certification1, certification2), "econo", 1L, "대학생");
+        Mento mento = Mento.createMento("sonny1233", "sonny1233@", "sonny12@naver.com", "sonny", "안녕하세요, 현재 dotoring 프로젝트를 개발하고 있는 백엔드 개발자 sonny입니다.", List.of(certification1, certification2), "econo", 1L, "대학생");
 
         Mento savedMento = mentoRepository.save(mento);
-
         // then
         Assertions.assertThat(savedMento.getCertifications().size()).isEqualTo(2);
-
-
+        Assertions.assertThat(certification1.getMember().getEmail()).isEqualTo("sonny12@naver.com");
     }
 }
