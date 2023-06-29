@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CertificationResponseDTO {
 
-    private List<String> storeFileName;
+    private List<Long> certificationIds;
 
 }

@@ -25,7 +25,6 @@ public class MentoRepositoryTest {
     @DisplayName("증명서를 먼저 저장한 후에 멘토를 저장 - CascadeType.PERSIST 테스트")
     @Test
     void saveMember(){
-
         // given
         String originalFileName1 = "sonnyTest.img";
         String uuid1 = UUID.randomUUID().toString();
@@ -57,4 +56,6 @@ public class MentoRepositoryTest {
         Assertions.assertThat(savedMento.getCertifications().size()).isEqualTo(2);
         Assertions.assertThat(certification1.getMember().getEmail()).isEqualTo("sonny12@naver.com");
     }
+
+
 }

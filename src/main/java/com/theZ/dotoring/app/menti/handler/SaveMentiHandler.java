@@ -4,7 +4,6 @@ import com.theZ.dotoring.app.certification.model.Certification;
 import com.theZ.dotoring.app.certification.service.CertificationService;
 import com.theZ.dotoring.app.menti.dto.MentiSignupDTO;
 import com.theZ.dotoring.app.menti.service.MentiService;
-import com.theZ.dotoring.app.mento.dto.MentoSignupDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +19,7 @@ public class SaveMentiHandler {
 
     @Transactional
     public void execute(MentiSignupDTO mentiSignupDTO){
-        List<Certification> certifications = certificationService.getCertifications(mentiSignupDTO.getStoreFileNames());
+        List<Certification> certifications = certificationService.getCertifications(mentiSignupDTO.getCertificationIds());
         mentiService.saveMenti(mentiSignupDTO,certifications);
     }
 }

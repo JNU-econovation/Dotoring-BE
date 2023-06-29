@@ -54,7 +54,4 @@ public class Mento extends Member {
         return mento;
     }
 
-
-
-
 }

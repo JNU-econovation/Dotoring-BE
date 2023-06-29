@@ -2,8 +2,8 @@ package com.theZ.dotoring.app.commonModel;
 
 import com.theZ.dotoring.common.MessageCode;
 import com.theZ.dotoring.exception.ExtentionNotAllowedException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -15,13 +15,14 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Component
+@Slf4j
 public class FileUtils {
 
     private final String rootPath = System.getProperty("user.dir");
 
     private final String fileDir = rootPath + "/src/main/resources/static/";
 
-    private final List<String> fileExts = List.of("pdf","img");
+    private final List<String> fileExts = List.of("pdf","img","jpg","jpeg","png");
 
     public String getFullPath(String filename) {
         return fileDir + filename;
@@ -31,9 +32,6 @@ public class FileUtils {
         List<UploadFile> storeFileResult = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
-                if(multipartFile.getSize() > 10L){
-                    throw new MaxUploadSizeExceededException(10);
-                }
                 storeFileResult.add(storeFile(multipartFile));
             }else{
                 throw new FileNotFoundException();
@@ -47,7 +45,9 @@ public class FileUtils {
             return null;
         }
         String originalFilename = multipartFile.getOriginalFilename();
+        System.out.println(originalFilename);
         String storeFileName = createStoreFileName(originalFilename);
+        System.out.println(storeFileName);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
         return new UploadFile(originalFilename, storeFileName);
     }
@@ -64,10 +64,8 @@ public class FileUtils {
     private String extractExt(String originalFilename) {
         int pos = originalFilename.lastIndexOf(".");
         String ext = originalFilename.substring(pos + 1);
-        for (String fileExt: fileExts) {
-            if(!Objects.equals(fileExt,ext)){
-                throw  new ExtentionNotAllowedException(MessageCode.NOT_ALLOWED_FILE_EXT);
-            }
+        if(!fileExts.contains(ext)){
+            throw new ExtentionNotAllowedException(MessageCode.NOT_ALLOWED_FILE_EXT);
         }
         return ext;
     }

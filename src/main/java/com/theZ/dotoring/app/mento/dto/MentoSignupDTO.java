@@ -20,7 +20,7 @@ public class MentoSignupDTO {
 
     private String job;
 
-    private List<String> storeFileNames;
+    private List<Long> certificationIds;
 
     @Size(min = 3, max = 8, message = "이름은 3자 이상 8자 이하로 입력해주세요.")
     private String nickname;
