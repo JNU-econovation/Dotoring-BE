@@ -5,11 +5,9 @@ import com.theZ.dotoring.app.certification.service.CertificationService;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,8 +22,9 @@ public class CertificationController {
     private final CertificationService certificationService;
 
     @PostMapping("/certifications")
-    public ApiResponse<ApiResponse.SuccessBody<CertificationResponseDTO>> saveCertifications(@RequestBody CertificationRequestDTO certificationRequestDTO) throws IOException {
-        return ApiResponseGenerator.success(certificationService.saveCertifications(certificationRequestDTO), HttpStatus.OK);
+    public ApiResponse<ApiResponse.SuccessBody<CertificationResponseDTO>> saveCertifications(@RequestPart List<MultipartFile> certificationNames) throws IOException {
+        // todo RequestPart에 대해서 공부
+        return ApiResponseGenerator.success(certificationService.saveCertifications(certificationNames), HttpStatus.OK);
     }
 
 

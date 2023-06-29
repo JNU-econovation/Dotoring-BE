@@ -1,8 +1,5 @@
 package com.theZ.dotoring.app.menti.dto;
 
-import com.theZ.dotoring.enums.Major;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -14,11 +11,11 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class MentiSignupDTO {
-    private String school;
 
+    private String school;
     private Long grade;
     private String major;
-    private List<String> storeFileNames;
+    private List<Long> certificationIds;
     @Size(min = 3, max = 8, message = "이름은 3자 이상 8자 이하로 입력해주세요.")
     private String nickname;
 

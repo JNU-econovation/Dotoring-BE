@@ -18,7 +18,7 @@ public class SaveMentoHandler {
 
     @Transactional
     public void execute(MentoSignupDTO mentoSignupDTO){
-        List<Certification> certifications = certificationService.getCertifications(mentoSignupDTO.getStoreFileNames());
+        List<Certification> certifications = certificationService.getCertifications(mentoSignupDTO.getCertificationIds());
         mentoService.saveMento(mentoSignupDTO,certifications);
     }
 
