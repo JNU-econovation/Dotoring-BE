@@ -22,4 +22,5 @@ public class SaveMentiHandler {
         List<Certification> certifications = certificationService.getCertifications(mentiSignupDTO.getCertificationIds());
         mentiService.saveMenti(mentiSignupDTO,certifications);
     }
+    
 }

@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class MentiController {
 
     private final SaveMentiHandler mentiHandler;
-
     @PostMapping("/menti")
-    public ApiResponse<ApiResponse.SuccessBody<Void>> saveMenti(@RequestBody @Valid MentiSignupDTO mentiSignupDTO){
+    public ApiResponse<ApiResponse.CustomBody<Void>> saveMenti(@RequestBody @Valid MentiSignupDTO mentiSignupDTO){
         mentiHandler.execute(mentiSignupDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
+
 }

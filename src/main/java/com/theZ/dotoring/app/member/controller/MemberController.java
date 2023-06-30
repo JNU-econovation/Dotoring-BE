@@ -24,19 +24,19 @@ public class MemberController {
     private final MemberEmailValidateService memberEmailValidateService;
 
     @PostMapping("/member/nickname")
-    public ApiResponse<ApiResponse.SuccessBody<Void>> validateMemberNickname(@RequestBody @Valid MemberNicknameDTO memberNicknameDTO){
+    public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberNickname(@RequestBody @Valid MemberNicknameDTO memberNicknameDTO){
         memberDuplicateValidateService.validateNickname(memberNicknameDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
     @PostMapping("/member/loginId")
-    public ApiResponse<ApiResponse.SuccessBody<Void>> validateMemberLoginId(@RequestBody @Valid MemberLoginIdDTO memberLoginIdDTO){
+    public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberLoginId(@RequestBody @Valid MemberLoginIdDTO memberLoginIdDTO){
         memberDuplicateValidateService.validateLoginId(memberLoginIdDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
     @PostMapping("member/email")
-    public ApiResponse<ApiResponse.SuccessBody<MemberEmailCodeDTO>> validateMemberEmail(@RequestBody @Valid MemberEmailDTO memberEmailDTO){
+    public ApiResponse<ApiResponse.CustomBody<MemberEmailCodeDTO>> validateMemberEmail(@RequestBody @Valid MemberEmailDTO memberEmailDTO){
         MemberEmailCodeDTO memberEmailCodeDTO = memberEmailValidateService.validateEmail(memberEmailDTO);
         return ApiResponseGenerator.success(memberEmailCodeDTO,HttpStatus.OK);
     }

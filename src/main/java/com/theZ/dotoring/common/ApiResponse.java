@@ -9,9 +9,6 @@ import java.io.Serializable;
 
 @Getter
 public class ApiResponse<B> extends ResponseEntity<B> {
-    public ApiResponse(HttpStatusCode status) {
-        super(status);
-    }
 
     public ApiResponse(B body, HttpStatusCode status) {
         super(body, status);
@@ -19,20 +16,11 @@ public class ApiResponse<B> extends ResponseEntity<B> {
 
     @Getter
     @AllArgsConstructor
-    public static class FailureBody implements Serializable {
+    public static class CustomBody<D> implements Serializable {
 
-        private String code;
-        private String message;
+        private Boolean success;
+        private D response;
+        private Error error;
 
-        public FailureBody(final String message) {
-            this.message = message;
-        }
-    }
-    @Getter
-    @AllArgsConstructor
-    public static class SuccessBody<D> implements Serializable {
-        private D data;
-        private String message;
-        private String code;
     }
 }
