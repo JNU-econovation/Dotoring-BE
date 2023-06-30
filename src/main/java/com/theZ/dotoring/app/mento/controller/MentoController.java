@@ -17,7 +17,7 @@ public class MentoController {
     private final SaveMentoHandler saveMentoHandler;
 
     @PostMapping("/mento")
-    public ApiResponse<ApiResponse.SuccessBody<Void>> saveMento(@RequestBody @Valid MentoSignupDTO mentoSignupDTO){
+    public ApiResponse<ApiResponse.CustomBody<Void>> saveMento(@RequestBody @Valid MentoSignupDTO mentoSignupDTO){
         saveMentoHandler.execute(mentoSignupDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
