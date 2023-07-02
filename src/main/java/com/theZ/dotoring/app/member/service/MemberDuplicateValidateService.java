@@ -1,10 +1,7 @@
 package com.theZ.dotoring.app.member.service;
 
-import com.theZ.dotoring.app.member.dto.MemberEmailCodeDTO;
-import com.theZ.dotoring.app.member.dto.MemberEmailDTO;
-import com.theZ.dotoring.app.member.dto.MemberLoginIdDTO;
-import com.theZ.dotoring.app.member.dto.MemberNicknameDTO;
-import com.theZ.dotoring.app.member.repository.MemberRepository;
+import com.theZ.dotoring.app.member.dto.MemberLoginIdRequestDTO;
+import com.theZ.dotoring.app.member.dto.MemberNicknameRequestDTO;
 import com.theZ.dotoring.app.mento.repository.MentoRepository;
 import com.theZ.dotoring.common.MessageCode;
 import com.theZ.dotoring.exception.LoginIdDuplicateException;
@@ -18,20 +15,21 @@ public class MemberDuplicateValidateService {
 
     private final MentoRepository mentoRepository;
 
-    public void validateNickname(MemberNicknameDTO memberNicknameDTO) {
+    public void validateNickname(MemberNicknameRequestDTO memberNicknameRequestDTO) {
         mentoRepository.findAll().stream().forEach(i ->{
-            if(i.getEmail().equals(memberNicknameDTO.getNickname())){
+            if(i.getEmail().equals(memberNicknameRequestDTO.getNickname())){
                 throw new NicknameDuplicateException(MessageCode.DUPLICATED_NICKNAME);
             }
         });
     }
 
-    public void validateLoginId(MemberLoginIdDTO memberLoginIdDTO) {
+    public void validateLoginId(MemberLoginIdRequestDTO memberLoginIdRequestDTO) {
         mentoRepository.findAll().stream().forEach(i -> {
-            if(i.getEmail().equals(memberLoginIdDTO.getLoginId())){
+            if(i.getEmail().equals(memberLoginIdRequestDTO.getLoginId())){
                 throw new LoginIdDuplicateException(MessageCode.DUPLICATED_LOGIN_ID);
             }
         });
+
     }
 
 }

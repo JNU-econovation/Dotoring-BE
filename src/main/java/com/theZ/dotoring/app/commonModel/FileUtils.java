@@ -20,7 +20,7 @@ public class FileUtils {
 
     private final String rootPath = System.getProperty("user.dir");
 
-    private final String fileDir = rootPath + "/src/main/resources/static/";
+    private final String fileDir = rootPath + "/src/main/resources/static/files/";
 
     private final List<String> fileExts = List.of("pdf","img","jpg","jpeg","png");
 
@@ -45,9 +45,7 @@ public class FileUtils {
             return null;
         }
         String originalFilename = multipartFile.getOriginalFilename();
-        System.out.println(originalFilename);
         String storeFileName = createStoreFileName(originalFilename);
-        System.out.println(storeFileName);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
         return new UploadFile(originalFilename, storeFileName);
     }

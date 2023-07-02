@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 
 public class CertificationMapper {
 
+    // entity로 변환 : to
     public static List<Certification> to(List<UploadFile> uploadFiles){
 
         if(uploadFiles == null && uploadFiles.size() >0){

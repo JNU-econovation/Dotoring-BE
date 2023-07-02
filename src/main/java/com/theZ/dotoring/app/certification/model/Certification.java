@@ -2,13 +2,13 @@ package com.theZ.dotoring.app.certification.model;
 
 import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.enums.DeleteStatus;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

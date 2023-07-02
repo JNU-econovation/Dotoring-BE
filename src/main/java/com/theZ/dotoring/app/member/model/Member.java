@@ -2,15 +2,16 @@ package com.theZ.dotoring.app.member.model;
 
 import com.theZ.dotoring.app.certification.model.Certification;
 import com.theZ.dotoring.app.commonModel.CommonEntity;
+import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import com.theZ.dotoring.enums.Status;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,13 @@ public abstract class Member extends CommonEntity {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+
+    @Enumerated(EnumType.STRING)
+    private Job job;
+
+    @Enumerated(EnumType.STRING)
+    private Major major;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Certification> certifications = new ArrayList<>();

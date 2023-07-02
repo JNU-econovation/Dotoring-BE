@@ -2,7 +2,7 @@ package com.theZ.dotoring.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Getter
 public class ApiResponse<B> extends ResponseEntity<B> {
 
-    public ApiResponse(B body, HttpStatusCode status) {
+    public ApiResponse(B body, HttpStatus status) {
         super(body, status);
     }
 
