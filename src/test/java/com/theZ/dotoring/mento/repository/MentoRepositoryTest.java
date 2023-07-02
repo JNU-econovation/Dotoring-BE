@@ -3,7 +3,9 @@ import com.theZ.dotoring.app.certification.model.Certification;
 import com.theZ.dotoring.app.certification.repository.CertificationRepository;
 import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.app.mento.repository.MentoRepository;
+import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.DeleteStatus;
+import com.theZ.dotoring.enums.Major;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,7 +51,7 @@ public class MentoRepositoryTest {
 
         // when
 
-        Mento mento = Mento.createMento("sonny1233", "sonny1233@", "sonny12@naver.com", "sonny", "안녕하세요, 현재 dotoring 프로젝트를 개발하고 있는 백엔드 개발자 sonny입니다.", List.of(certification1, certification2), "econo", 1L, "대학생");
+        Mento mento = Mento.createMento("sonny1233", "sonny1233@", "sonny12@naver.com", "sonny", "안녕하세요, 현재 dotoring 프로젝트를 개발하고 있는 백엔드 개발자 sonny입니다.","sun",List.of(certification1, certification2), "econo", 1L, Job.valueOf("정보통신"), Major.valueOf("산업공학과"));
 
         Mento savedMento = mentoRepository.save(mento);
         // then

@@ -3,7 +3,6 @@ package com.theZ.dotoring.exception;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
 import com.theZ.dotoring.common.MessageCode;
-import jakarta.validation.ConstraintViolationException;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.http.HttpStatus;
@@ -61,12 +60,11 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleEmailDuplicateException(ConstraintViolationException e){
-        return ApiResponseGenerator.fail(MessageCode.VALIDATION_FAIL.getCode(),e.getMessage(), HttpStatus.CONFLICT);
+
+    @ExceptionHandler(RuntimeException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(RuntimeException e){
+        return ApiResponseGenerator.fail(e.getMessage(),null, HttpStatus.BAD_REQUEST);
     }
-
-
 
 
 
