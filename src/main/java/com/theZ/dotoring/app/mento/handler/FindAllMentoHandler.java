@@ -1,7 +1,5 @@
 package com.theZ.dotoring.app.mento.handler;
 
-import com.theZ.dotoring.app.certification.model.Certification;
-import com.theZ.dotoring.app.menti.dto.MentiSignupRequestDTO;
 import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.menti.service.MentiService;
 import com.theZ.dotoring.app.mento.dto.MentoCardResponseDTO;
@@ -10,9 +8,7 @@ import com.theZ.dotoring.common.DefaultCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 
 @Component
@@ -27,4 +23,6 @@ public class FindAllMentoHandler {
         DefaultCondition defaultCondition = DefaultCondition.of(menti.getMajor(), menti.getJob());
         return mentoService.findAllMentoBySlice(lastMentoId,size,defaultCondition);
     }
+
+
 }

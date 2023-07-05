@@ -28,6 +28,9 @@ public class QMenti extends EntityPathBase<Menti> {
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
+    public final StringPath dtype = _super.dtype;
+
+    //inherited
     public final StringPath email = _super.email;
 
     public final NumberPath<Long> grade = createNumber("grade", Long.class);

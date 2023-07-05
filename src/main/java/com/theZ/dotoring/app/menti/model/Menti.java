@@ -30,7 +30,7 @@ public class Menti extends Member {
 
     @Builder
     public Menti(String loginId, String password, String email, String nickname, String introduction, String profileImage, Status status, Job job, Major major, List<Certification> certifications, String school, Long grade, String preferredMentoring) {
-        super(loginId, password, email, nickname, introduction, profileImage, status,job,major,certifications);
+        super(loginId, password, email, nickname, introduction, profileImage,"I" , status,job,major,certifications);
         this.grade = grade;
         this.school = school;
         this.preferredMentoring = preferredMentoring;

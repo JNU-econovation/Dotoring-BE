@@ -22,41 +22,47 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalStateException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleIOException(IllegalStateException illegalStateException){
-        return ApiResponseGenerator.fail(MessageCode.FILE_NOT_STATE.getCode(),MessageCode.FILE_NOT_STATE.getValue(), HttpStatus.BAD_REQUEST);
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(IllegalStateException illegalStateException){
+        return ApiResponseGenerator.fail(MessageCode.VALIDATION_FAIL.getCode(),illegalStateException.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(IllegalArgumentException illegalArgumentException){
+        return ApiResponseGenerator.fail(MessageCode.VALIDATION_FAIL.getCode(),illegalArgumentException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleIOException(HttpMediaTypeNotSupportedException e){
+    public ApiResponse<ApiResponse.CustomBody> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e){
         return ApiResponseGenerator.fail(MessageCode.NOT_ALLOWED_FILE_EXT.getCode(),MessageCode.NOT_ALLOWED_FILE_EXT.getValue(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SizeLimitExceededException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleIOException(SizeLimitExceededException e){
+    public ApiResponse<ApiResponse.CustomBody> handleSizeLimitExceededException(SizeLimitExceededException e){
         return ApiResponseGenerator.fail(MessageCode.LIMIT_FILE_SIZE.getCode(),MessageCode.LIMIT_FILE_SIZE.getValue(),HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(FileSizeLimitExceededException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleIOException(FileSizeLimitExceededException e){
+    public ApiResponse<ApiResponse.CustomBody> handleIOFileSizeLimitExceededException(FileSizeLimitExceededException e){
         return ApiResponseGenerator.fail(MessageCode.LIMIT_FILE_SIZE.getCode(),MessageCode.LIMIT_FILE_SIZE.getValue(),HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(ExtentionNotAllowedException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleIOException(ExtentionNotAllowedException e){
+    public ApiResponse<ApiResponse.CustomBody> handleExtentionNotAllowedException(ExtentionNotAllowedException e){
         return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(FileNotFoundException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleIOException(FileNotFoundException fileNotFoundException){
+    public ApiResponse<ApiResponse.CustomBody> handleFileNotFoundException(FileNotFoundException fileNotFoundException){
         return ApiResponseGenerator.fail(MessageCode.FIlE_NOT_FOUND.getCode(),MessageCode.FIlE_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NicknameDuplicateException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleEmailDuplicateException(NicknameDuplicateException e){
+    public ApiResponse<ApiResponse.CustomBody> handleNicknameDuplicateException(NicknameDuplicateException e){
         return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(LoginIdDuplicateException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleEmailDuplicateException(LoginIdDuplicateException e){
+    public ApiResponse<ApiResponse.CustomBody> handleLoginIdDuplicateException(LoginIdDuplicateException e){
         return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.CONFLICT);
     }
 
