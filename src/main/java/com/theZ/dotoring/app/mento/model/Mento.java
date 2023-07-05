@@ -30,7 +30,7 @@ public class Mento extends Member {
 
     @Builder
     public Mento(String loginId, String password, String email, String nickname, String introduction, String profileImage, Status status, List<Certification> certifications, String company, Long careerLevel, Job job, Major major, String mentoringSystem) {
-        super(loginId, password, email, nickname, introduction, profileImage, status, job, major, certifications);
+        super(loginId, password, email, nickname, introduction, profileImage,"O", status, job, major, certifications);
         this.company = company;
         this.careerLevel = careerLevel;
         this.mentoringSystem = mentoringSystem;

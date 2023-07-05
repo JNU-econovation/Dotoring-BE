@@ -43,9 +43,15 @@ public abstract class Member extends CommonEntity {
 
     private String profileImage;
 
+    @Column(name = "DTYPE", insertable = false, updatable = false)
+    private String dtype;
+
+    public String getDtype() {
+        return dtype;
+    }
+
     @Enumerated(EnumType.STRING)
     private Status status;
-
 
     @Enumerated(EnumType.STRING)
     private Job job;
@@ -60,6 +66,10 @@ public abstract class Member extends CommonEntity {
         for(Certification certification : certifications){
             certification.mappingMember(this);
         }
+    }
+
+    public void approveStatus(){
+        this.status = Status.ACTIVE;
     }
 
 }

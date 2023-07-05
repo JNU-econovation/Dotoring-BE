@@ -27,6 +27,8 @@ public class QMember extends EntityPathBase<Member> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final StringPath dtype = createString("dtype");
+
     public final StringPath email = createString("email");
 
     //inherited

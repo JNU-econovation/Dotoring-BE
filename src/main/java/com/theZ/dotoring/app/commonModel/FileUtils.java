@@ -1,5 +1,6 @@
 package com.theZ.dotoring.app.commonModel;
 
+import com.theZ.dotoring.app.certification.model.Certification;
 import com.theZ.dotoring.common.MessageCode;
 import com.theZ.dotoring.exception.ExtentionNotAllowedException;
 import lombok.extern.slf4j.Slf4j;
@@ -13,19 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 @Component
 @Slf4j
 public class FileUtils {
 
-    private final String rootPath = System.getProperty("user.dir");
+    private static final String rootPath = System.getProperty("user.dir");
 
-    private final String fileDir = rootPath + "/src/main/resources/static/files/";
+    private static final String fileDir = rootPath + "/src/main/resources/static/files/";
 
     private final List<String> fileExts = List.of("pdf","img","jpg","jpeg","png");
 
-    public String getFullPath(String filename) {
+    public static String getFullPath(String filename) {
         return fileDir + filename;
+    }
+
+    public static List<String> getFullPathList(List<Certification> certifications) {
+        List<String> fullPathList = new ArrayList<>();
+        for(Certification certification : certifications){
+            fullPathList.add(fileDir + certification.getSaveFileName());
+        }
+        return fullPathList;
     }
 
     public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
