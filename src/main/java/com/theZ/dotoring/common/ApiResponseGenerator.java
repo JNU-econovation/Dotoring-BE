@@ -1,7 +1,9 @@
 package com.theZ.dotoring.common;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 @UtilityClass
 public class ApiResponseGenerator {
@@ -12,6 +14,10 @@ public class ApiResponseGenerator {
 
     public static <D> ApiResponse<ApiResponse.CustomBody<D>> success(final D response, final HttpStatus status) {
         return new ApiResponse<>(new ApiResponse.CustomBody(true,response,null), status);
+    }
+
+    public static <D> ApiResponse<ApiResponse.CustomBody<D>> success(final D response, final MediaType mediaType, final HttpStatus status) {
+        return new ApiResponse<>(new ApiResponse.CustomBody(true,response,null),mediaType,status);
     }
 
     public static ApiResponse<ApiResponse.CustomBody> fail(String message, String code, final HttpStatus status) {

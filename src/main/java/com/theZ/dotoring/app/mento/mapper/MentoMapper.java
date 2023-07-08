@@ -1,6 +1,6 @@
 package com.theZ.dotoring.app.mento.mapper;
 
-import com.theZ.dotoring.app.commonModel.FileUtils;
+import com.theZ.dotoring.common.FileUtils;
 import com.theZ.dotoring.app.mento.dto.MentoCardResponseDTO;
 import com.theZ.dotoring.app.mento.model.Mento;
 
@@ -21,7 +21,7 @@ public class MentoMapper {
         List<MentoCardResponseDTO> mentoCardResponseDTOList = IntStream.range(0, mentoList.size())
                 .mapToObj(i -> MentoCardResponseDTO.builder()
                         .mentoId(mentoList.get(i).getId())
-                        .profileImage(FileUtils.getFullPath(mentoList.get(i).getProfileImage()))
+                        .profileImageUrl(FileUtils.getFilePath(mentoList.get(i).getProfileImage()))
                         .nickname(mentoList.get(i).getNickname())
                         .job(mentoList.get(i).getJob().toString())
                         .major(mentoList.get(i).getMajor().toString())

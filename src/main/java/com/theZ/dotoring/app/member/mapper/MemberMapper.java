@@ -1,6 +1,6 @@
 package com.theZ.dotoring.app.member.mapper;
 
-import com.theZ.dotoring.app.commonModel.FileUtils;
+import com.theZ.dotoring.common.FileUtils;
 import com.theZ.dotoring.app.member.dto.MemberInfoResponseDTO;
 import com.theZ.dotoring.app.member.model.Member;
 
@@ -23,7 +23,7 @@ public class MemberMapper {
                         .nickname(memberList.get(i).getNickname())
                         .job(memberList.get(i).getJob().toString())
                         .major(memberList.get(i).getMajor().toString())
-                        .certifications(FileUtils.getFullPathList(memberList.get(i).getCertifications()))
+                        .certificationsUrl(FileUtils.getFilePathList(memberList.get(i).getCertifications()))
                         .build()
                 ).collect(Collectors.toList());
 

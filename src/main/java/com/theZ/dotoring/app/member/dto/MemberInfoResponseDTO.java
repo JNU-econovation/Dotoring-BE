@@ -15,6 +15,6 @@ public class MemberInfoResponseDTO {
     private String nickname;
     private String job;
     private String major;
-    private List<String> certifications;
+    private List<String> certificationsUrl;
 
 }

@@ -2,8 +2,11 @@ package com.theZ.dotoring.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 
 import java.io.Serializable;
 
@@ -12,6 +15,11 @@ public class ApiResponse<B> extends ResponseEntity<B> {
 
     public ApiResponse(B body, HttpStatus status) {
         super(body, status);
+    }
+
+    public ApiResponse(B body, MediaType mediaType, HttpStatus status) {
+        super(body, status);
+        this.getHeaders().setContentType(mediaType);
     }
 
     @Getter

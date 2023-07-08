@@ -8,7 +8,7 @@ import lombok.Getter;
 public class MentiCardResponseDTO {
 
     private Long mentoId;
-    private String profileImage;
+    private String profileImageUrl;
     private String nickname;
     private String job;
     private String major;

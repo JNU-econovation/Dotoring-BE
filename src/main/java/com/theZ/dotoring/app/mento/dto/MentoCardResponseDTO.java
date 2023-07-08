@@ -10,7 +10,7 @@ import lombok.Getter;
 public class MentoCardResponseDTO {
 
     private Long mentoId;
-    private String profileImage;
+    private String profileImageUrl;
     private String nickname;
     private String job;
     private String major;

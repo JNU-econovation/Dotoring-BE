@@ -1,9 +1,11 @@
-package com.theZ.dotoring.app.commonModel;
+package com.theZ.dotoring.common;
 
 import com.theZ.dotoring.app.certification.model.Certification;
+import com.theZ.dotoring.app.commonModel.UploadFile;
 import com.theZ.dotoring.common.MessageCode;
 import com.theZ.dotoring.exception.ExtentionNotAllowedException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,9 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.IntStream;
 
 @Component
 @Slf4j
@@ -24,16 +24,21 @@ public class FileUtils {
 
     private static final String fileDir = rootPath + "/src/main/resources/static/files/";
 
-    private final List<String> fileExts = List.of("pdf","img","jpg","jpeg","png");
+    private final List<String> fileExts = List.of("pdf","jpg","jpeg","png");
+
+
+    public static String getFilePath(String filename){
+        return "/files/" + filename;
+    }
 
     public static String getFullPath(String filename) {
         return fileDir + filename;
     }
 
-    public static List<String> getFullPathList(List<Certification> certifications) {
+    public static List<String> getFilePathList(List<Certification> certifications) {
         List<String> fullPathList = new ArrayList<>();
         for(Certification certification : certifications){
-            fullPathList.add(fileDir + certification.getSaveFileName());
+            fullPathList.add("/files/" + certification.getSaveFileName());
         }
         return fullPathList;
     }
@@ -69,12 +74,24 @@ public class FileUtils {
     }
 
     // 확장명 뽑기
-    private String extractExt(String originalFilename) {
+    public String extractExt(String originalFilename) {
         int pos = originalFilename.lastIndexOf(".");
         String ext = originalFilename.substring(pos + 1);
         if(!fileExts.contains(ext)){
             throw new ExtentionNotAllowedException(MessageCode.NOT_ALLOWED_FILE_EXT);
         }
         return ext;
+    }
+
+    public MediaType toMediaType(String ext){
+        MediaType mediaType = MediaType.ALL;
+        if(ext.equals("jpg") || ext.equals("jpeg")){
+            mediaType = MediaType.IMAGE_JPEG;
+        } else if (ext.equals("png")) {
+            mediaType = MediaType.IMAGE_PNG;
+        } else if (ext.equals("pdf")) {
+            mediaType =  MediaType.APPLICATION_PDF;
+        }
+        return mediaType;
     }
 }

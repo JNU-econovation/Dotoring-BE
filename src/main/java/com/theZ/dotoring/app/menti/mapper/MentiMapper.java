@@ -1,6 +1,6 @@
 package com.theZ.dotoring.app.menti.mapper;
 
-import com.theZ.dotoring.app.commonModel.FileUtils;
+import com.theZ.dotoring.common.FileUtils;
 import com.theZ.dotoring.app.menti.dto.MentiCardResponseDTO;
 import com.theZ.dotoring.app.menti.model.Menti;
 
@@ -19,7 +19,7 @@ public class MentiMapper {
         List<MentiCardResponseDTO> mentiCardResponseDTOList = IntStream.range(0, mentiList.size())
                 .mapToObj(i -> MentiCardResponseDTO.builder()
                         .mentoId(mentiList.get(i).getId())
-                        .profileImage(FileUtils.getFullPath(mentiList.get(i).getProfileImage()))
+                        .profileImageUrl(FileUtils.getFilePath(mentiList.get(i).getProfileImage()))
                         .nickname(mentiList.get(i).getNickname())
                         .job(mentiList.get(i).getJob().toString())
                         .major(mentiList.get(i).getMajor().toString())
