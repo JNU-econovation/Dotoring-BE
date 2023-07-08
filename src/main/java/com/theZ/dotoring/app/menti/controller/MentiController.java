@@ -34,5 +34,4 @@ public class MentiController {
         // todo springsecurity 적용한면, metoId를 받을 필요가 없다.
         return ApiResponseGenerator.success(findAllMentiHandler.execute(lastMentiId,size,mentoId),HttpStatus.OK);
     }
-
 }

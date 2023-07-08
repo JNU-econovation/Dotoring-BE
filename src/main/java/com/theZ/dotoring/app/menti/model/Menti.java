@@ -36,6 +36,14 @@ public class Menti extends Member {
         this.preferredMentoring = preferredMentoring;
     }
 
+    public static Menti createTestMenti(String loginId, String nickname){
+        Menti menti = Menti.builder()
+                .loginId(loginId)
+                .nickname(nickname)
+                .build();
+        return menti;
+    }
+
     public static Menti createMenti(String loginId, String password, String email, String nickname, String introduction, String profileImage, List<Certification> certifications,String school,Long grade, Major major,Job job){
         Menti menti = Menti.builder()
                 .loginId(loginId)
@@ -53,5 +61,4 @@ public class Menti extends Member {
         menti.mappingCertification(certifications);
         return menti;
     }
-
 }
