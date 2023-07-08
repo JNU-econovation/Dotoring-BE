@@ -11,4 +11,5 @@ public class LoginIdDuplicateException extends RuntimeException{
     public LoginIdDuplicateException(MessageCode messageCode) {
         this.messageCode = messageCode;
     }
+    
 }

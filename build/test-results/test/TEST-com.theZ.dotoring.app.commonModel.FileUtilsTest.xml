@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.theZ.dotoring.app.commonModel.FileUtilsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-07-07T11:57:00" hostname="hwangdaeseon-ui-MacBookPro.local" time="0.008">
+  <properties/>
+  <testcase name="test()" classname="com.theZ.dotoring.app.commonModel.FileUtilsTest" time="0.008"/>
+  <system-out><![CDATA[/Users/hwangdaeseon/Project/dotoring/Dotoring-BE
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

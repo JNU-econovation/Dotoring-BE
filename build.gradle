@@ -42,7 +42,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
-
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks.named('test') {

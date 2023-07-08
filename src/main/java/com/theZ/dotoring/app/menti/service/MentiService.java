@@ -27,6 +27,7 @@ public class MentiService {
 
     private final MentiRepository mentiRepository;
     private final MentiQueryRepository mentiQueryRepository;
+
     @Transactional
     public void saveMenti(MentiSignupRequestDTO mentiSignupRequestDTO, List<Certification> certifications){
         Menti menti = Menti.createMenti(mentiSignupRequestDTO.getLoginId(), mentiSignupRequestDTO.getPassword(), mentiSignupRequestDTO.getEmail(), mentiSignupRequestDTO.getNickname(), mentiSignupRequestDTO.getIntroduction(),"basicProfile_47838475947393908393.png",certifications, mentiSignupRequestDTO.getSchool(), mentiSignupRequestDTO.getGrade(), Major.valueOf(mentiSignupRequestDTO.getMajor()), Job.valueOf(mentiSignupRequestDTO.getJob()));
