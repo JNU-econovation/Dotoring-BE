@@ -22,8 +22,6 @@ import java.util.List;
 @Transactional
 public class LetterMentoService {
 
-    // private final RoomService roomService;
-
     private final LetterRepository letterRepository;
 
     // 밖에서 쪽지 보내기
@@ -40,7 +38,7 @@ public class LetterMentoService {
     }
 
     // 안에서 쪽지 보내기
-
+    @Transactional
     public Letter sendLetterWhereIn(LetterByMemberRequestDTO letterRequestDTO, Mento user, Room room) {
         Letter letter = LetterMapper.INSTANCE.toEntity(letterRequestDTO, user, new Date());
         // 양방향 연관 관계

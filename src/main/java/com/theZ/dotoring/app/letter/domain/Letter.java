@@ -4,9 +4,10 @@ import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.app.room.domain.Room;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,7 +24,7 @@ public class Letter {
 
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "writer_id") // writer_id는 Writer(작성자)의 식별자 컬럼 이름입니다.
     private Member writer;
 
@@ -32,7 +33,10 @@ public class Letter {
     private Room room;
 
     @CreatedDate
-    private Date createdAt;
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     // letterList에 추가하기
     public void addLetter(Room room){
@@ -40,6 +44,8 @@ public class Letter {
             this.room.getLetterList().remove(this);
         }
         this.room = room;
-        room.getLetterList().add(this);
+        if (room != null) {
+            room.getLetterList().add(this);
+        }
     }
 }

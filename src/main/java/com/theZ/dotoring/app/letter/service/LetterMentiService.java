@@ -40,7 +40,7 @@ public class LetterMentiService {
     }
 
     // 안에서 쪽지 보내기
-
+    @Transactional
     public Letter sendLetterWhereIn(LetterByMemberRequestDTO letterRequestDTO, Menti user, Room room) {
         Letter letter = LetterMapper.INSTANCE.toEntity(letterRequestDTO, user, new Date());
         // 양방향 연관 관계

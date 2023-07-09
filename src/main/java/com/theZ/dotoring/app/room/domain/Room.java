@@ -7,6 +7,7 @@ import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.mento.model.Mento;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -38,12 +39,7 @@ public class Room {
     @CreatedDate
     private LocalDateTime createAt;
 
-    @CreatedDate
+    @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    // 최신화
-    public void updateTime(){
-        this.updatedAt = LocalDateTime.now();
-    }
 
 }
