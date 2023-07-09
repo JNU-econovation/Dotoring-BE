@@ -31,11 +31,9 @@ public class RoomService {
 
         if (room.isPresent()) {
             Room roomEntity = room.get();
-            roomEntity.updateTime();
             return roomEntity;
         }
         Room newRoom = makeRoomObject(writer, receiver);
-        newRoom.updateTime();
 
         return saveRoom(newRoom);
     }
@@ -61,7 +59,6 @@ public class RoomService {
                 .writer(requestUser)
                 .receiver(otherUser)
                 .build();
-
         return room;
     }
 }

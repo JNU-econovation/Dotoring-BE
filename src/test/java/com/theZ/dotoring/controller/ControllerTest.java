@@ -7,6 +7,7 @@ import com.theZ.dotoring.app.letter.controller.LetterFromMentoController;
 import com.theZ.dotoring.app.letter.domain.Letter;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberRequestDTO;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberResponseDTO;
+import com.theZ.dotoring.app.letter.mapper.LetterMapper;
 import com.theZ.dotoring.app.letter.repository.LetterRepository;
 import com.theZ.dotoring.app.letter.service.LetterMentiService;
 import com.theZ.dotoring.app.letter.service.LetterMentoService;
@@ -22,8 +23,8 @@ import com.theZ.dotoring.enums.DeleteStatus;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -39,6 +40,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,7 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-//@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)
 public class ControllerTest {
 
     @Autowired
@@ -96,13 +99,14 @@ public class ControllerTest {
      * HTTP GET,POST 등에 대해 API 테스트 가능
      * */
 
-    //@Before
+    @Before
     public void init() {
         mvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     //@Test
     @DisplayName("Hello Test")
+    @Test
     @Transactional
     public void Hello_Test() throws Exception {
 
@@ -132,21 +136,23 @@ public class ControllerTest {
 
         certificationRepository.saveAll(List.of(certification1, certification2));
 
-        // Mento 생성
+        // Mento 생성 -> 잘 생성
         Mento mento1 = Mento.createMento("sonny1233", "sonny1233@", "sonny12@naver.com", "sonny", "안녕하세요, 현재 dotoring 프로젝트를 개발하고 있는 백엔드 개발자 sonny입니다.", "sun", List.of(certification1, certification2), "econo", 1L, Job.valueOf("정보통신"), Major.valueOf("산업공학과"));
 
-        // Menti 생성
+        // Menti 생성 -> 잘 생성
         Menti menti1 = Menti.createMenti("yardyard","sonny1233", "sonny12@naver.com", "sonny12", "안녕하세요, 저는 짱멋있는 케빈입니다.", "안녕하세요",  List.of(certification1, certification2), "eco", 1L, Major.valueOf("산업공학과"), Job.valueOf("정보통신"));
 
         Mento mento = mentoRepository.save(mento1);
 
         Menti menti = mentiRepository.save(menti1);
 
-        // Room 생성
+        // Room 생성 -> 잘 생성
         Room room1 = roomService.findOrCreateRoom(mento, menti);
 
+        System.out.println("room1.getWriter() : " + room1.getWriter());
+        System.out.println("room1.getReceiver() : " + room1.getReceiver());
+
         // 쪽지 보내기
-        // RequestDto -> Entity
         // Letter 생성
         LetterByMemberRequestDTO letter1 = LetterByMemberRequestDTO.builder()
                 .content("쪽지 내용이와요1")
@@ -164,31 +170,22 @@ public class ControllerTest {
                 .content("쪽지 내용이와요4")
                 .build();
 
-        // when
-
+        // when -> 이게 문제, 저장이 최신 한 개 밖에 안돼, repo.save()도 여전히 1개
+        // 영속성 문제는 그럼 아닌건가??
+        // 잠시만 -> mento만 글을 작성하는게 문제인가?? -> 각각 나눠서 작성하니 1, 1
+        // 즉 멘토가 썼던 것들은 멘토가 쓴 글 중 가장 나중 글만 저장
+        // 멘티가 썼던 것은 멘티가 쓴 글 중 가장 나중 글만 저장
+        // 각 Mento or MentiService단에 문제가 있다고 판단
         letterMentoService.sendLetterWhereIn(letter1, mento, room1);
-        letterMentoService.sendLetterWhereIn(letter2, mento, room1);
+        letterMentiService.sendLetterWhereIn(letter2, menti, room1);
         letterMentoService.sendLetterWhereIn(letter3, mento, room1);
-        letterMentoService.sendLetterWhereIn(letter4, mento, room1);
-
-        Pageable pageable = PageRequest.of(0, 2);
+        letterMentiService.sendLetterWhereIn(letter4, menti, room1);
 
         // then
         List<Letter> letters = letterRepository.findByRoom(room1);
+        List<Letter> letterList1 = letterRepository.findAll();
         System.out.println("letters.size() : " + letters.size());
-
-        List<Letter> testLetters = letterRepository.findAll();
-        System.out.println("letters.size() : " + testLetters.size());
-
-        Slice<LetterByMemberResponseDTO> pageLists = letterMentoService.getLettersByOne(mento, room1, pageable);
-
-        System.out.println("pageLists.getSize() : " + pageLists.getSize());
-
-        for (LetterByMemberResponseDTO dto : pageLists) {
-            System.out.println("answer : " + dto.getLetterId());
-            System.out.println("answer : " + dto.getCreatedAt());
-            System.out.println("answer : " + dto.isWriter());
-        }
+        System.out.println("letters1.size() : " + letterList1.size());
 
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 

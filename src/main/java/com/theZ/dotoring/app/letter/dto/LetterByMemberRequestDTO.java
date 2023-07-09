@@ -11,8 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class LetterByMemberRequestDTO {
-
     private String content;
-
-    private Member writer;
 }
