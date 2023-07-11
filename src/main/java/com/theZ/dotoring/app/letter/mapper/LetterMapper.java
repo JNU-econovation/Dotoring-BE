@@ -20,6 +20,7 @@ public interface LetterMapper {
     LetterMapper INSTANCE = Mappers.getMapper(LetterMapper.class);
 
     // LetterRequestDto -> Letter 매핑
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "member", target = "writer")
     @Mapping(source = "date", target = "createdAt")
     @Mapping(target = "room", ignore = true)

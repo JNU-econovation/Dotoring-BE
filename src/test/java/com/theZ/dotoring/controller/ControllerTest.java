@@ -24,14 +24,11 @@ import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -39,9 +36,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -92,6 +88,9 @@ public class ControllerTest {
 
     @Autowired
     private MentiRepository mentiRepository;
+
+    @Autowired
+    private EntityManager em;
 
     /**
      * 웹 API 테스트할 때 사용
@@ -177,9 +176,9 @@ public class ControllerTest {
         // 멘티가 썼던 것은 멘티가 쓴 글 중 가장 나중 글만 저장
         // 각 Mento or MentiService단에 문제가 있다고 판단
         letterMentoService.sendLetterWhereIn(letter1, mento, room1);
-        letterMentiService.sendLetterWhereIn(letter2, menti, room1);
+        letterMentoService.sendLetterWhereIn(letter2, mento, room1);
         letterMentoService.sendLetterWhereIn(letter3, mento, room1);
-        letterMentiService.sendLetterWhereIn(letter4, menti, room1);
+        letterMentoService.sendLetterWhereIn(letter4, mento, room1);
 
         // then
         List<Letter> letters = letterRepository.findByRoom(room1);
