@@ -3,6 +3,7 @@ package com.theZ.dotoring.app.menti.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class MentiSignupRequestDTO {
 
     private String school;

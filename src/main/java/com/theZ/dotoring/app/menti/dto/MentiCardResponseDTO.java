@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 public class MentiCardResponseDTO {
 
-    private Long mentoId;
+    private Long mentiId;
     private String profileImageUrl;
     private String nickname;
     private String job;

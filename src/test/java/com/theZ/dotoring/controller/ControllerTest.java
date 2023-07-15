@@ -6,8 +6,6 @@ import com.theZ.dotoring.app.letter.controller.LetterFromMentiController;
 import com.theZ.dotoring.app.letter.controller.LetterFromMentoController;
 import com.theZ.dotoring.app.letter.domain.Letter;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberRequestDTO;
-import com.theZ.dotoring.app.letter.dto.LetterByMemberResponseDTO;
-import com.theZ.dotoring.app.letter.mapper.LetterMapper;
 import com.theZ.dotoring.app.letter.repository.LetterRepository;
 import com.theZ.dotoring.app.letter.service.LetterMentiService;
 import com.theZ.dotoring.app.letter.service.LetterMentoService;
@@ -22,14 +20,17 @@ import com.theZ.dotoring.app.room.service.RoomService;
 import com.theZ.dotoring.enums.DeleteStatus;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
-import org.junit.Before;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
@@ -48,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class ControllerTest {
 
     @Autowired
@@ -98,7 +99,7 @@ public class ControllerTest {
      * HTTP GET,POST 등에 대해 API 테스트 가능
      * */
 
-    @Before
+    @BeforeEach
     public void init() {
         mvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }

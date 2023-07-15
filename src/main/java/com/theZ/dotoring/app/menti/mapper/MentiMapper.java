@@ -18,7 +18,7 @@ public class MentiMapper {
 
         List<MentiCardResponseDTO> mentiCardResponseDTOList = IntStream.range(0, mentiList.size())
                 .mapToObj(i -> MentiCardResponseDTO.builder()
-                        .mentoId(mentiList.get(i).getId())
+                        .mentiId(mentiList.get(i).getId())
                         .profileImageUrl(FileUtils.getFilePath(mentiList.get(i).getProfileImage()))
                         .nickname(mentiList.get(i).getNickname())
                         .job(mentiList.get(i).getJob().toString())

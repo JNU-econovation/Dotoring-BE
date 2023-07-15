@@ -4,6 +4,7 @@ package com.theZ.dotoring.app.mento.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class MentoSignupRequestDTO {
 
     private String company;

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.theZ.dotoring.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.theZ.dotoring.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dotoring.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dotoring.main.iml" />
     </modules>
   </component>
 </project>
