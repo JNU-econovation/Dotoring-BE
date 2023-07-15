@@ -1,7 +1,11 @@
 package com.theZ.dotoring.app.mento.repository;
 
+import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.theZ.dotoring.app.certification.model.QCertification;
+import com.theZ.dotoring.app.mento.dto.MentoCardResponseDTO;
 import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.common.DefaultCondition;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +15,7 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+import static com.theZ.dotoring.app.certification.model.QCertification.certification;
 import static com.theZ.dotoring.app.mento.model.QMento.mento;
 
 @Repository
@@ -19,11 +24,13 @@ public class MentoQueryRepository {
 
     private final JPAQueryFactory query;
 
-    public Slice<Mento> findAllBySlice(Long lastMentoId, DefaultCondition defaultCondition, Pageable pageable) {
-        List<Mento> results = query.selectFrom(mento)
+    public Slice<MentoCardResponseDTO> findAllBySlice(Long lastMentoId, DefaultCondition defaultCondition, Pageable pageable) {
+        List<MentoCardResponseDTO> results = query.select(Projections.bean(MentoCardResponseDTO.class,mento.id, mento.profileImage,mento.nickname,mento.job,mento.major,mento.introduction))
+                .from(mento)
                 .where(lessThanMentoId(lastMentoId),(mento.job.eq(defaultCondition.getJob()).or(mento.major.eq(defaultCondition.getMajor()))))
                 .orderBy(mento.job.asc(),mento.major.asc(),mento.id.desc())
                 .limit(pageable.getPageSize()+1)
+                .setHint("org.hibernate.readOnly",true)
                 .fetch();
         // 무한 스크롤 처리
         return checkLastPage(pageable, results);
@@ -39,7 +46,7 @@ public class MentoQueryRepository {
     }
 
     // 무한 스크롤 방식 처리하는 메서드
-    private Slice<Mento> checkLastPage(Pageable pageable, List<Mento> results) {
+    private Slice<MentoCardResponseDTO> checkLastPage(Pageable pageable, List<MentoCardResponseDTO> results) {
 
         boolean hasNext = false;
 

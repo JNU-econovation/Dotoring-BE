@@ -1,19 +1,19 @@
 package com.theZ.dotoring.app.mento.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import com.theZ.dotoring.enums.Job;
+import com.theZ.dotoring.enums.Major;
+import lombok.*;
 
 @Getter
-@Builder
+@Setter
+@NoArgsConstructor
 public class MentoCardResponseDTO {
 
-    private Long mentoId;
-    private String profileImageUrl;
+    private Long id;
+    private String profileImage;
     private String nickname;
-    private String job;
-    private String major;
+    private Job job;
+    private Major major;
     private String introduction;
 
 }
