@@ -1,7 +1,9 @@
 package com.theZ.dotoring.app.menti.repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.theZ.dotoring.app.menti.dto.MentiCardResponseDTO;
 import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.common.DefaultCondition;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +24,13 @@ public class MentiQueryRepository{
 
 
     // 직무가 같은 것 찾고, 학과가 같은 것 찾아서 직무가 같은 것, 학과가 같은 것, 최신 순으로 정렬
-    public Slice<Menti> findAllBySlice(Long lastMentiId, DefaultCondition defaultCondition, Pageable pageable) {
-        List<Menti> results = query.selectFrom(menti)
+    public Slice<MentiCardResponseDTO> findAllBySlice(Long lastMentiId, DefaultCondition defaultCondition, Pageable pageable) {
+        List<MentiCardResponseDTO> results = query.select(Projections.bean(MentiCardResponseDTO.class,menti.id,menti.profileImage,menti.nickname,menti.job,menti.major,menti.introduction))
+                .from(menti)
                 .where(lessThanMentoId(lastMentiId),(menti.job.eq(defaultCondition.getJob()).or(menti.major.eq(defaultCondition.getMajor()))))
                 .orderBy(menti.job.asc(),menti.major.asc(),menti.id.desc())
                 .limit(pageable.getPageSize()+1)
+                .setHint("org.hibernate.readOnly",true)
                 .fetch();
         // 무한 스크롤 처리
         return checkLastPage(pageable, results);
@@ -42,7 +46,7 @@ public class MentiQueryRepository{
     }
 
     // 무한 스크롤 방식 처리하는 메서드
-    private Slice<Menti> checkLastPage(Pageable pageable, List<Menti> results) {
+    private Slice<MentiCardResponseDTO> checkLastPage(Pageable pageable, List<MentiCardResponseDTO> results) {
 
         boolean hasNext = false;
 

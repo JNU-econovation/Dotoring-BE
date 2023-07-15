@@ -8,7 +8,7 @@ import com.theZ.dotoring.common.DefaultCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Component
@@ -18,6 +18,7 @@ public class FindAllMentoHandler {
     private final MentiService mentiService;
     private final MentoService mentoService;
 
+    @Transactional(readOnly = true)
     public Slice<MentoCardResponseDTO> execute(Long lastMentoId, Integer size, Long mentiId){
         Menti menti = mentiService.findMenti(mentiId);
         DefaultCondition defaultCondition = DefaultCondition.of(menti.getMajor(), menti.getJob());
