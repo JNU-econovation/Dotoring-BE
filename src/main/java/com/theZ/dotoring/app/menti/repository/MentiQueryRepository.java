@@ -4,8 +4,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.theZ.dotoring.app.menti.dto.MentiCardResponseDTO;
-import com.theZ.dotoring.app.menti.model.Menti;
-import com.theZ.dotoring.common.DefaultCondition;
+import com.theZ.dotoring.app.menti.model.MentiFilterCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
@@ -24,10 +23,10 @@ public class MentiQueryRepository{
 
 
     // 직무가 같은 것 찾고, 학과가 같은 것 찾아서 직무가 같은 것, 학과가 같은 것, 최신 순으로 정렬
-    public Slice<MentiCardResponseDTO> findAllBySlice(Long lastMentiId, DefaultCondition defaultCondition, Pageable pageable) {
+    public Slice<MentiCardResponseDTO> findAllBySlice(Long lastMentiId, MentiFilterCondition mentiFilterCondition, Pageable pageable) {
         List<MentiCardResponseDTO> results = query.select(Projections.bean(MentiCardResponseDTO.class,menti.id,menti.profileImage,menti.nickname,menti.job,menti.major,menti.introduction))
                 .from(menti)
-                .where(lessThanMentoId(lastMentiId),(menti.job.eq(defaultCondition.getJob()).or(menti.major.eq(defaultCondition.getMajor()))))
+                .where(lessThanMentoId(lastMentiId),(menti.job.eq(mentiFilterCondition.getJob()).or(menti.major.eq(mentiFilterCondition.getMajor()))))
                 .orderBy(menti.job.asc(),menti.major.asc(),menti.id.desc())
                 .limit(pageable.getPageSize()+1)
                 .setHint("org.hibernate.readOnly",true)

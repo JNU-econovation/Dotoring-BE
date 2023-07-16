@@ -5,7 +5,7 @@ import com.theZ.dotoring.app.mento.dto.MentoSignupRequestDTO;
 import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.app.mento.repository.MentoQueryRepository;
 import com.theZ.dotoring.app.mento.repository.MentoRepository;
-import com.theZ.dotoring.common.DefaultCondition;
+import com.theZ.dotoring.app.mento.model.MentoFilterCondition;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import lombok.RequiredArgsConstructor;
@@ -40,9 +40,9 @@ public class MentoService {
 
 
     @Transactional(readOnly = true)
-    public Slice<MentoCardResponseDTO> findAllMentoBySlice(Long lastMentoId, Integer size, DefaultCondition defaultCondition){
+    public Slice<MentoCardResponseDTO> findAllMentoBySlice(Long lastMentoId, Integer size, MentoFilterCondition mentoFilterCondition){
         PageRequest pageRequest = PageRequest.of(0, size);
-        Slice<MentoCardResponseDTO> mentoSlice = mentoQueryRepository.findAllBySlice(lastMentoId, defaultCondition, pageRequest);
+        Slice<MentoCardResponseDTO> mentoSlice = mentoQueryRepository.findAllBySlice(lastMentoId, mentoFilterCondition, pageRequest);
         return mentoSlice;
     }
 

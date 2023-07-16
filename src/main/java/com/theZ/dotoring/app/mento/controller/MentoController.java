@@ -2,6 +2,7 @@ package com.theZ.dotoring.app.mento.controller;
 
 import com.theZ.dotoring.app.mento.dto.MentoCardResponseDTO;
 import com.theZ.dotoring.app.mento.dto.MentoSignupRequestDTO;
+import com.theZ.dotoring.app.mento.dto.MentoRequiredCondition;
 import com.theZ.dotoring.app.mento.handler.FindAllMentoHandler;
 import com.theZ.dotoring.app.mento.handler.SaveMentoHandler;
 import com.theZ.dotoring.common.ApiResponse;
@@ -29,9 +30,11 @@ public class MentoController {
 
     @GetMapping("/mento")
     public ApiResponse<ApiResponse.CustomBody<Slice<MentoCardResponseDTO>>> findAllMentoBySlice(
-            @RequestParam(required = false) Long lastMentoId, @RequestParam(defaultValue = "10") Integer size, Long mentiId){
+            @RequestParam(required = false) Long lastMentoId, @RequestParam(defaultValue = "10") Integer size, Long mentiId,
+            @ModelAttribute MentoRequiredCondition mentoRequiredCondition){
         // todo springsecurity 적용한면, metiId를 받을 필요가 없다.
-        return ApiResponseGenerator.success(findAllMentoHandler.execute(lastMentoId,size,mentiId),HttpStatus.OK);
+        mentoRequiredCondition.initCondition();
+        return ApiResponseGenerator.success(findAllMentoHandler.execute(lastMentoId,size,mentiId, mentoRequiredCondition),HttpStatus.OK);
     }
 
 }
