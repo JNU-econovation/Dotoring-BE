@@ -13,9 +13,7 @@ import java.util.Optional;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    List<Room> findAllByWriterOrReceiver(Member writer, Member receiver);
-
-    Optional<Room> findByWriterOrReceiver(Member writer, Member receiver);
+    Optional<List<Room>> findAllByWriterOrReceiver(Member writer, Member receiver);
 
     Optional<Room> findByWriterAndReceiver(Member writer, Member receiver);
 }

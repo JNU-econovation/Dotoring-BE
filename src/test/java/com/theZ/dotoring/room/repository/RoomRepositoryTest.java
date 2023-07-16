@@ -93,7 +93,7 @@ public class RoomRepositoryTest {
         Optional<Menti> menti = mentiRepository.findById(2L);
 
         // when
-        List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mento.get(), menti.get());
+        List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mento.get(), menti.get()).get();
 
         // then
         Assertions.assertThat(rooms.size()).isEqualTo(1);

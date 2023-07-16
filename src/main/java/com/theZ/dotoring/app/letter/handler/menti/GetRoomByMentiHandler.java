@@ -17,7 +17,7 @@ public class GetRoomByMentiHandler {
     final private RoomService roomService;
 
     @Transactional
-    public List<RoomResponseDTO> execute(Long mentoId, Long mentiId){
+    public List<RoomResponseDTO> execute(Long mentoId, Long mentiId) throws Exception {
         List<Room> room = roomService.findAllByUserId(mentoId, mentiId);
 
         List<RoomResponseDTO> responseDTOList = RoomMapper.INSTANCE.toDTOs(room);

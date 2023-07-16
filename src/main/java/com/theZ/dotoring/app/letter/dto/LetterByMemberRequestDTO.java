@@ -1,15 +1,17 @@
 package com.theZ.dotoring.app.letter.dto;
 
 import com.theZ.dotoring.app.member.model.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.validation.constraints.Max;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class LetterByMemberRequestDTO {
+
+    @NonNull
+    @Max(200)
     private String content;
 }

@@ -8,13 +8,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface LetterRepository extends JpaRepository<Letter, Long> {
 
-    Slice<Letter> findByRoom(Room room, Pageable pageable);
+    Optional<Slice<Letter>> findByRoom(Room room, Pageable pageable);
 
-    List<Letter> findByRoom(Room room);
+    Optional<List<Letter>> findByRoom(Room room);
 
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -66,8 +67,9 @@ public class LetterMentiService {
 
     // 해당 Room에 해당하는 메시지들 반환
     @Transactional(readOnly = true)
-    public Slice<LetterByMemberResponseDTO> getLettersByOne(Menti user, Room room, Pageable pageable) {
-        Slice<Letter> letters = letterRepository.findByRoom(room, pageable);
+    public Slice<LetterByMemberResponseDTO> getLettersByOne(Menti user, Room room, Pageable pageable) throws Exception {
+        Slice<Letter> letters = letterRepository.findByRoom(room, pageable)
+                .orElseThrow(() -> new Exception("Letter가 존재하지 않습니다."));
 
         List<LetterByMemberResponseDTO> letterResponseDTOS = LetterMapper.INSTANCE.toDTOs(letters.getContent(), user);
 
