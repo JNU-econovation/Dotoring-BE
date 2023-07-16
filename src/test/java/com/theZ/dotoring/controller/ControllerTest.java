@@ -182,7 +182,7 @@ public class ControllerTest {
         letterMentoService.sendLetterWhereIn(letter4, mento, room1);
 
         // then
-        List<Letter> letters = letterRepository.findByRoom(room1);
+        List<Letter> letters = letterRepository.findByRoom(room1).get();
         List<Letter> letterList1 = letterRepository.findAll();
         System.out.println("letters.size() : " + letters.size());
         System.out.println("letters1.size() : " + letterList1.size());

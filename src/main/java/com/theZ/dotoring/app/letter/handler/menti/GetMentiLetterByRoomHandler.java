@@ -24,7 +24,7 @@ public class GetMentiLetterByRoomHandler {
     final private RoomService roomService;
 
     @Transactional
-    public Slice<LetterByMemberResponseDTO> execute(int page, int size, Long mentiId, Long roomPK) {
+    public Slice<LetterByMemberResponseDTO> execute(int page, int size, Long mentiId, Long roomPK) throws Exception {
 
         Room room = roomService.findByRoomId(roomPK);
 

@@ -15,6 +15,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -32,28 +33,28 @@ public class LetterFromMentiController {
 
 
     @PostMapping("api/menti/letter/out/{mentoId}/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereOut(@RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) {
+    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereOut(@Valid @RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) {
         // mentiId : 멘티인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
         createLetterByMentiHandler.execute(letterRequestDTO, mentoId, mentiId);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
     @PostMapping("api/menti/letter/in/{mentoId}/{roomPK}")
-    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereIn(@RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @PathVariable("roomPK") Long roomPK) {
+    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereIn(@Valid @RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @PathVariable("roomPK") Long roomPK) {
         // mentiId : 멘티인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
         createLetterByRoomHandler.execute(letterRequestDTO, mentoId, roomPK);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
     @GetMapping("api/menti/room/{mentoId}/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) {
+    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) throws Exception {
         // mentiId : 멘티인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
         return ApiResponseGenerator.success(getRoomByMentiHandler.execute(mentoId, mentiId), HttpStatus.OK);
     }
 
     @GetMapping("api/menti/letter/{roomPK}/{mentiId}")
     public ApiResponse<ApiResponse.CustomBody<Slice<LetterByMemberResponseDTO>>> getLetters(@RequestParam int page, @RequestParam int size,
-                                                       @PathVariable("roomPK") Long roomPK, @PathVariable("mentiId") Long mentiId) {
+                                                       @PathVariable("roomPK") Long roomPK, @PathVariable("mentiId") Long mentiId) throws Exception {
         return ApiResponseGenerator.success(getLetterByRoomHandler.execute(page, size, roomPK, mentiId), HttpStatus.OK);
     }
 }

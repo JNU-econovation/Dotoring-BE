@@ -55,8 +55,9 @@ public class RoomService {
     }
 
     @Transactional(readOnly = true)
-    public List<Room> findAllByUserId(Long mentoId, Long mentiId) {
-        List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mentoService.findMento(mentoId), mentiService.findMenti(mentiId));
+    public List<Room> findAllByUserId(Long mentoId, Long mentiId) throws Exception {
+        List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mentoService.findMento(mentoId), mentiService.findMenti(mentiId))
+                .orElseThrow(() -> new Exception("room이 존재하지 않습니다/"));
         return rooms;
     }
 
