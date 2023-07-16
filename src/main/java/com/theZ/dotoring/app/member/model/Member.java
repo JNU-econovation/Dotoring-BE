@@ -22,6 +22,10 @@ import java.util.List;
 @AttributeOverride(name = "id", column = @Column(name = "MEMBER_ID"))
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(indexes = {
+        @Index(name = "idx_job" ,columnList = "job"),
+        @Index(name = "idx_major", columnList = "major")
+})
 public abstract class Member extends CommonEntity {
 
     @Column(name = "LOGIN_ID", unique = true)

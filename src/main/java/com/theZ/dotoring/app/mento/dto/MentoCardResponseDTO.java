@@ -16,4 +16,13 @@ public class MentoCardResponseDTO {
     private Major major;
     private String introduction;
 
+    @Builder
+    public MentoCardResponseDTO(Long id, String profileImage, String nickname, Job job, Major major, String introduction) {
+        this.id = id;
+        this.profileImage = profileImage;
+        this.nickname = nickname;
+        this.job = job;
+        this.major = major;
+        this.introduction = introduction;
+    }
 }
