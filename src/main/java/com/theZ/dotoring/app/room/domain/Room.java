@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -36,10 +37,15 @@ public class Room {
     @JoinColumn(name = "receiver_id") // receiver_id는 Receiver(수신자)의 식별자 컬럼 이름입니다.
     private Member receiver;
 
+    private LocalDateTime lastSendTime;
+
     @CreatedDate
     private LocalDateTime createAt;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    public void updateLastSendTime(){
+        this.lastSendTime = LocalDateTime.now();
+    }
 }

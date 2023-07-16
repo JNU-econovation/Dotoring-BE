@@ -34,6 +34,8 @@ public class LetterMentiService {
         // 양방향 연관 관계
         letter.addLetter(room);
 
+        room.updateLastSendTime();
+
         letterRepository.save(letter);
 
         return letter;
@@ -45,6 +47,8 @@ public class LetterMentiService {
         Letter letter = LetterMapper.INSTANCE.toEntity(letterRequestDTO, user, new Date());
         // 양방향 연관 관계
         letter.addLetter(room);
+
+        room.updateLastSendTime();
 
         letterRepository.save(letter);
 

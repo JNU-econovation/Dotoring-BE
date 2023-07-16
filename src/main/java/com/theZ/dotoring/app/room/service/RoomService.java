@@ -27,12 +27,22 @@ public class RoomService {
 
     @Transactional
     public Room findOrCreateRoom(Member writer, Member receiver) {
-        Optional<Room> room = roomRepository.findByWriterAndReceiver(writer, receiver);
+        
+        // 만들어진 방이 하나라도 있는지 검증 
+        // todo 추후 Mento, Menti 분리하기
+        Optional<Room> room1 = roomRepository.findByWriterAndReceiver(writer, receiver);
+        Optional<Room> room2 = roomRepository.findByWriterAndReceiver(receiver, writer);
 
-        if (room.isPresent()) {
-            Room roomEntity = room.get();
+        if (room1.isPresent()) {
+            Room roomEntity = room1.get();
             return roomEntity;
         }
+
+        if (room2.isPresent()) {
+            Room roomEntity = room2.get();
+            return roomEntity;
+        }
+
         Room newRoom = makeRoomObject(writer, receiver);
 
         return saveRoom(newRoom);

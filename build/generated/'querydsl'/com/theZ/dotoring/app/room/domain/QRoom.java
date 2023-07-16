@@ -24,6 +24,8 @@ public class QRoom extends EntityPathBase<Room> {
 
     public final DateTimePath<java.time.LocalDateTime> createAt = createDateTime("createAt", java.time.LocalDateTime.class);
 
+    public final DateTimePath<java.time.LocalDateTime> lastSendTime = createDateTime("lastSendTime", java.time.LocalDateTime.class);
+
     public final ListPath<com.theZ.dotoring.app.letter.domain.Letter, com.theZ.dotoring.app.letter.domain.QLetter> letterList = this.<com.theZ.dotoring.app.letter.domain.Letter, com.theZ.dotoring.app.letter.domain.QLetter>createList("letterList", com.theZ.dotoring.app.letter.domain.Letter.class, com.theZ.dotoring.app.letter.domain.QLetter.class, PathInits.DIRECT2);
 
     public final com.theZ.dotoring.app.member.model.QMember receiver;
