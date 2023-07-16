@@ -7,8 +7,11 @@ import com.theZ.dotoring.app.letter.handler.mento.CreateMentoLetterByRoomHandler
 import com.theZ.dotoring.app.letter.handler.mento.GetMentoLetterByRoomHandler;
 import com.theZ.dotoring.app.letter.handler.mento.GetRoomByMentoHandler;
 import com.theZ.dotoring.app.room.dto.RoomResponseDTO;
+import com.theZ.dotoring.common.ApiResponse;
+import com.theZ.dotoring.common.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,9 +30,10 @@ public class LetterFromMentoController {
     private final GetMentoLetterByRoomHandler getLettersFromMemberHandler;
 
     @PostMapping("api/mento/letter/out/{mentoId}/{mentiId}")
-    public void sendLetterWhereOut(@RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) {
+    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereOut(@RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) {
         // mentoId : 멘토인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
         createLetterMember2MemberHandler.execute(letterRequestDTO, mentoId, mentiId);
+        return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
     @PostMapping("api/mento/letter/in/{mentoId}/{roomPK}")
@@ -39,14 +43,14 @@ public class LetterFromMentoController {
     }
 
     @GetMapping("api/mento/room/{mentoId}/{mentiId}")
-    public List<RoomResponseDTO> getRooms(Long mentoId, Long mentiId) {
+    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) {
         // mentoId : 멘토인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
-        return getRoomsFromMemberHandler.execute(mentoId, mentiId);
+        return ApiResponseGenerator.success(getRoomsFromMemberHandler.execute(mentoId, mentiId), HttpStatus.OK);
     }
 
     @GetMapping("api/mento/letter/{roomPK}/{mentoId}")
-    public Slice<LetterByMemberResponseDTO> getLetters(@RequestParam int page, @RequestParam int size,
+    public ApiResponse<ApiResponse.CustomBody<Slice<LetterByMemberResponseDTO>>> getLetters(@RequestParam int page, @RequestParam int size,
                                                        @PathVariable Long roomPK, @PathVariable Long mentoId) {
-        return getLettersFromMemberHandler.execute(page, size, roomPK, mentoId);
+        return ApiResponseGenerator.success(getLettersFromMemberHandler.execute(page, size, roomPK, mentoId), HttpStatus.OK);
     }
 }

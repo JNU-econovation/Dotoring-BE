@@ -22,7 +22,7 @@ public interface RoomMapper {
     @Mapping(source = "receiver.nickname", target = "nickname")
     @Mapping(source = "receiver.id", target = "memberPK")
     @Mapping(source = "letterList", target = "lastLetter", qualifiedByName = "letterListToStr")
-    @Mapping(source = "updatedAt", target = "updateAt")
+    @Mapping(source = "lastSendTime", target = "updateAt")
     RoomResponseDTO toDTO(Room room);
 
     @Named("letterListToStr")

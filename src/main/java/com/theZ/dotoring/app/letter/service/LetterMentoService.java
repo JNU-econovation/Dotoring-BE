@@ -7,31 +7,22 @@ import com.theZ.dotoring.app.letter.mapper.LetterMapper;
 import com.theZ.dotoring.app.letter.repository.LetterRepository;
 import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.app.room.domain.Room;
-import com.theZ.dotoring.app.room.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class LetterMentoService {
 
-    private final EntityManager em;
-
     private final LetterRepository letterRepository;
-
-    private final RoomRepository roomRepository;
 
     // 밖에서 쪽지 보내기
     @Transactional
@@ -40,6 +31,8 @@ public class LetterMentoService {
 
         // 양방향 연관 관계
         letter.addLetter(room);
+
+        room.updateLastSendTime();
 
         letterRepository.save(letter);
 
@@ -55,6 +48,8 @@ public class LetterMentoService {
 
         // 양방향 연관 관계
         letter.addLetter(room);
+
+        room.updateLastSendTime();
 
         Letter savedLetter = letterRepository.save(letter);
 
