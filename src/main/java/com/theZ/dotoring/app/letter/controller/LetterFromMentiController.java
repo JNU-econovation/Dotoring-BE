@@ -50,4 +50,6 @@ public class LetterFromMentiController {
                                                        @PathVariable Long roomPK, @PathVariable Long mentiId) {
         return getLetterByRoomHandler.execute(page, size, roomPK, mentiId);
     }
+
+
 }

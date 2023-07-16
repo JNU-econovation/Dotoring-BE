@@ -4,9 +4,9 @@ import com.theZ.dotoring.app.certification.model.Certification;
 import com.theZ.dotoring.app.menti.dto.MentiCardResponseDTO;
 import com.theZ.dotoring.app.menti.dto.MentiSignupRequestDTO;
 import com.theZ.dotoring.app.menti.model.Menti;
+import com.theZ.dotoring.app.menti.model.MentiFilterCondition;
 import com.theZ.dotoring.app.menti.repository.MentiQueryRepository;
 import com.theZ.dotoring.app.menti.repository.MentiRepository;
-import com.theZ.dotoring.common.DefaultCondition;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import lombok.RequiredArgsConstructor;
@@ -39,9 +39,9 @@ public class MentiService {
     }
 
     @Transactional(readOnly = true)
-    public Slice<MentiCardResponseDTO> findAllMentiBySlice(Long lastMentiId, Integer size, DefaultCondition defaultCondition){
+    public Slice<MentiCardResponseDTO> findAllMentiBySlice(Long lastMentiId, Integer size, MentiFilterCondition mentiFilterCondition){
         PageRequest pageRequest = PageRequest.of(0, size);
-        Slice<MentiCardResponseDTO> mentiSlice = mentiQueryRepository.findAllBySlice(lastMentiId, defaultCondition, pageRequest);
+        Slice<MentiCardResponseDTO> mentiSlice = mentiQueryRepository.findAllBySlice(lastMentiId, mentiFilterCondition, pageRequest);
         return mentiSlice;
     }
 
