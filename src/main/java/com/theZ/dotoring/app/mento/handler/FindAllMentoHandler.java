@@ -24,7 +24,7 @@ public class FindAllMentoHandler {
 
     public Slice<MentoCardResponseDTO> execute(Long lastMentoId, Integer size, Long mentiId, MentoRequiredCondition mentoRequiredCondition){
         MentoFilterCondition mentoFilterCondition = makeFilterCondition(mentoRequiredCondition, mentiId);
-        return mentoService.findAllMentoBySlice(lastMentoId,size, mentoFilterCondition);
+        return mentoService.findAllMentoBySlice(lastMentoId, size, mentoFilterCondition);
     }
 
     @Transactional(readOnly = true)

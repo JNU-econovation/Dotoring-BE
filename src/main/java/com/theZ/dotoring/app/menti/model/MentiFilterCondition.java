@@ -16,14 +16,14 @@ import java.util.List;
 @Builder
 public class MentiFilterCondition {
 
-    private Major major;
+    private List<Major> majors;
 
-    private Job job;
+    private List<Job> jobs;
 
-    public static MentiFilterCondition of(Major major, Job job){
+    public static MentiFilterCondition of(List<Major> majors, List<Job> jobs){
         return MentiFilterCondition.builder()
-                .major(major)
-                .job(job)
+                .majors(majors)
+                .jobs(jobs)
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.theZ.dotoring.app.menti.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class MentiCardResponseDTO {
     private Major major;
     private String introduction;
 
+    //@QueryProjection
     @Builder
     public MentiCardResponseDTO(Long id, String profileImage, String nickname, Job job, Major major, String introduction) {
         this.id = id;
