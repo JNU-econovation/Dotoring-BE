@@ -1,12 +1,12 @@
 package com.theZ.dotoring.app.room.service;
 
 import com.theZ.dotoring.app.member.model.Member;
-import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.menti.service.MentiService;
-import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.app.mento.service.MentoService;
 import com.theZ.dotoring.app.room.domain.Room;
 import com.theZ.dotoring.app.room.repository.RoomRepository;
+import com.theZ.dotoring.common.MessageCode;
+import com.theZ.dotoring.exception.NotFoundRoomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,9 +55,9 @@ public class RoomService {
     }
 
     @Transactional(readOnly = true)
-    public List<Room> findAllByUserId(Long mentoId, Long mentiId) throws Exception {
+    public List<Room> findAllByUserId(Long mentoId, Long mentiId) throws NotFoundRoomException {
         List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mentoService.findMento(mentoId), mentiService.findMenti(mentiId))
-                .orElseThrow(() -> new Exception("room이 존재하지 않습니다/"));
+                .orElseThrow(() -> new NotFoundRoomException(MessageCode.ROOM_NOT_FOUND));
         return rooms;
     }
 

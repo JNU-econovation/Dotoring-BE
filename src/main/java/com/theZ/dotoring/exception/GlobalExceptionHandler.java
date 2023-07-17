@@ -7,6 +7,7 @@ import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededExceptio
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -71,8 +72,21 @@ public class GlobalExceptionHandler {
     public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(RuntimeException e){
         return ApiResponseGenerator.fail(e.getMessage(),null, HttpStatus.BAD_REQUEST);
     }
+    
+    // 유효성 어노테이션 핸들링
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        return ApiResponseGenerator.fail(e.getFieldError().getDefaultMessage(),null, HttpStatus.BAD_REQUEST);
+    }
 
+    @ExceptionHandler(NotFoundLetterException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleNotFindLetterException(NotFoundLetterException e){
+        return ApiResponseGenerator.fail(MessageCode.LETTER_NOT_FOUND.getCode(),MessageCode.LETTER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
 
-
+    @ExceptionHandler(NotFoundRoomException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleNotFindRoomException(NotFoundRoomException e){
+        return ApiResponseGenerator.fail(MessageCode.ROOM_NOT_FOUND.getCode(),MessageCode.ROOM_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
 
 }

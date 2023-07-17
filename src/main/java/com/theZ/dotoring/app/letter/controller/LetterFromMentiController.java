@@ -6,10 +6,11 @@ import com.theZ.dotoring.app.letter.handler.menti.CreateLetterByMentiHandler;
 import com.theZ.dotoring.app.letter.handler.menti.CreateMentiLetterByRoomHandler;
 import com.theZ.dotoring.app.letter.handler.menti.GetMentiLetterByRoomHandler;
 import com.theZ.dotoring.app.letter.handler.menti.GetRoomByMentiHandler;
-import com.theZ.dotoring.app.menti.dto.MentiCardResponseDTO;
 import com.theZ.dotoring.app.room.dto.RoomResponseDTO;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
+import com.theZ.dotoring.exception.NotFoundLetterException;
+import com.theZ.dotoring.exception.NotFoundRoomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
@@ -47,14 +48,14 @@ public class LetterFromMentiController {
     }
 
     @GetMapping("api/menti/room/{mentoId}/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) throws Exception {
+    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) throws NotFoundRoomException {
         // mentiId : 멘티인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
         return ApiResponseGenerator.success(getRoomByMentiHandler.execute(mentoId, mentiId), HttpStatus.OK);
     }
 
     @GetMapping("api/menti/letter/{roomPK}/{mentiId}")
     public ApiResponse<ApiResponse.CustomBody<Slice<LetterByMemberResponseDTO>>> getLetters(@RequestParam int page, @RequestParam int size,
-                                                       @PathVariable("roomPK") Long roomPK, @PathVariable("mentiId") Long mentiId) throws Exception {
+                                                       @PathVariable("roomPK") Long roomPK, @PathVariable("mentiId") Long mentiId) throws NotFoundLetterException {
         return ApiResponseGenerator.success(getLetterByRoomHandler.execute(page, size, roomPK, mentiId), HttpStatus.OK);
     }
 }
