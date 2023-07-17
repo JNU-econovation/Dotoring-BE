@@ -4,6 +4,7 @@ import com.theZ.dotoring.app.member.model.Member;
 import lombok.*;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
@@ -11,7 +12,7 @@ import javax.validation.constraints.Max;
 @Builder
 public class LetterByMemberRequestDTO {
 
-    @NonNull
+    @NotBlank
     @Max(200)
     private String content;
 }
