@@ -12,8 +12,8 @@ assignees: ''
 
 ## To Do
 
--[ ] to do
--[ ] to do
+- [ ] to do
+- [ ] to do
 
 ## ETC
 기타사항
