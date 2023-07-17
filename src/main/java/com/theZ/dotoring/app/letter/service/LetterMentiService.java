@@ -7,6 +7,8 @@ import com.theZ.dotoring.app.letter.mapper.LetterMapper;
 import com.theZ.dotoring.app.letter.repository.LetterRepository;
 import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.room.domain.Room;
+import com.theZ.dotoring.common.MessageCode;
+import com.theZ.dotoring.exception.NotFoundLetterException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -67,9 +68,9 @@ public class LetterMentiService {
 
     // 해당 Room에 해당하는 메시지들 반환
     @Transactional(readOnly = true)
-    public Slice<LetterByMemberResponseDTO> getLettersByOne(Menti user, Room room, Pageable pageable) throws Exception {
+    public Slice<LetterByMemberResponseDTO> getLettersByOne(Menti user, Room room, Pageable pageable) throws NotFoundLetterException {
         Slice<Letter> letters = letterRepository.findByRoom(room, pageable)
-                .orElseThrow(() -> new Exception("Letter가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundLetterException(MessageCode.LETTER_NOT_FOUND));
 
         List<LetterByMemberResponseDTO> letterResponseDTOS = LetterMapper.INSTANCE.toDTOs(letters.getContent(), user);
 

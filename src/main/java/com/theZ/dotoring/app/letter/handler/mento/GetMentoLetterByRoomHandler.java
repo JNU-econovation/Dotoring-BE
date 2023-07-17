@@ -6,6 +6,7 @@ import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.app.mento.service.MentoService;
 import com.theZ.dotoring.app.room.domain.Room;
 import com.theZ.dotoring.app.room.service.RoomService;
+import com.theZ.dotoring.exception.NotFoundLetterException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class GetMentoLetterByRoomHandler {
     final private RoomService roomService;
 
     @Transactional
-    public Slice<LetterByMemberResponseDTO> execute(int page, int size, Long mentoId, Long roomPK) throws Exception {
+    public Slice<LetterByMemberResponseDTO> execute(int page, int size, Long mentoId, Long roomPK) throws NotFoundLetterException {
 
         Room room = roomService.findByRoomId(roomPK);
 

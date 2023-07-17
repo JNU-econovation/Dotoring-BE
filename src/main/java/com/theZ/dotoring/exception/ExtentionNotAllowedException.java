@@ -8,6 +8,7 @@ public class ExtentionNotAllowedException extends RuntimeException {
 
 
     public final MessageCode messageCode;
+
     public ExtentionNotAllowedException(MessageCode messageCode){
         this.messageCode = messageCode;
     }
