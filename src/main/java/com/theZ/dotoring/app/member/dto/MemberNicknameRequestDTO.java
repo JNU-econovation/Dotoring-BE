@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import javax.validation.constraints.Size;
 
-@Getter
 @Data
 public class MemberNicknameRequestDTO {
 
