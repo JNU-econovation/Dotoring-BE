@@ -45,10 +45,10 @@ public class LetterFromMentoController {
         createLetterFromRoomHandler.execute(letterRequestDTO, mentoId, roomPK);
     }
 
-    @GetMapping("api/mento/room/{mentoId}/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) throws NotFoundRoomException {
+    @GetMapping("api/mento/room/{mentoId}")
+    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId) throws NotFoundRoomException {
         // mentoId : 멘토인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
-        return ApiResponseGenerator.success(getRoomsFromMemberHandler.execute(mentoId, mentiId), HttpStatus.OK);
+        return ApiResponseGenerator.success(getRoomsFromMemberHandler.execute(mentoId), HttpStatus.OK);
     }
 
     @GetMapping("api/mento/letter/{roomPK}/{mentoId}")

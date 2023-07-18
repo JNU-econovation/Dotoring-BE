@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class RoomResponseDTO {
-    // Room Entity 필드 -> 커스텀 필요
+    private Long roomPK;
+
     private Long memberPK;
 
     private String nickname;
