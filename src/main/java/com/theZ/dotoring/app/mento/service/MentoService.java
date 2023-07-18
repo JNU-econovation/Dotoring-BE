@@ -25,8 +25,6 @@ public class MentoService {
     private final MentoRepository mentoRepository;
     private final MentoQueryRepository mentoQueryRepository;
 
-
-
     public void saveMento(MentoSignupRequestDTO mentoSignupRequestDTO, List<Certification> certifications){
         Mento mento = Mento.createMento(mentoSignupRequestDTO.getLoginId(), mentoSignupRequestDTO.getPassword(), mentoSignupRequestDTO.getEmail(), mentoSignupRequestDTO.getNickname(), mentoSignupRequestDTO.getIntroduction(),"basicProfile_47838475947393908393.png",certifications, mentoSignupRequestDTO.getCompany(), mentoSignupRequestDTO.getCareerLevel(), Job.valueOf(mentoSignupRequestDTO.getJob()), Major.valueOf(mentoSignupRequestDTO.getMajor()));
         mentoRepository.save(mento);

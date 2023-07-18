@@ -19,12 +19,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class CertificationController {
 
-    private final CertificationService certificationService;
+//    private final CertificationService certificationService;
 
-    @PostMapping("/certifications")
-    public ApiResponse<ApiResponse.CustomBody<CertificationResponseDTO>> saveCertifications(@RequestPart List<MultipartFile> certificationNames) throws IOException {
-        // todo RequestPart에 대해서 공부
-        return ApiResponseGenerator.success(certificationService.saveCertifications(certificationNames), HttpStatus.OK);
-    }
+//    @PostMapping("/certifications")
+//    public ApiResponse<ApiResponse.CustomBody<CertificationResponseDTO>> saveCertifications(@RequestPart List<MultipartFile> certificationNames) throws IOException {
+//        return ApiResponseGenerator.success(certificationService.saveCertifications(certificationNames), HttpStatus.OK);
+//    }
 
 }

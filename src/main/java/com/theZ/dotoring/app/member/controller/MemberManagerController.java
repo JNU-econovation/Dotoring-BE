@@ -17,7 +17,7 @@ public class MemberManagerController {
 
     private final MemberService memberService;
 
-    @GetMapping("/wait-member")
+    @GetMapping("/admin/wait-member")
     public ApiResponse<ApiResponse.CustomBody<Page<MemberInfoResponseDTO>>> getWaitMember(Pageable pageable, @RequestParam(required = false) String condition){
 
         if(!check(condition)){
@@ -34,10 +34,11 @@ public class MemberManagerController {
         return true;
     }
 
-    @PatchMapping("/member/{id}")
-    public ApiResponse<ApiResponse.CustomBody<Void>> approveMember(@PathVariable Long id){
+    @PatchMapping("/admin/member")
+    public ApiResponse<ApiResponse.CustomBody<Void>> approveMember(@RequestParam Long id){
         memberService.approveMember(id);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
+
 
 }

@@ -7,7 +7,6 @@ import lombok.Getter;
 import javax.validation.constraints.Email;
 
 @Data
-@Getter
 public class MemberEmailRequestDTO {
 
 

@@ -7,6 +7,9 @@ import com.theZ.dotoring.app.mento.service.MentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -17,9 +20,9 @@ public class SaveMentoHandler {
     private final CertificationService certificationService;
 
     @Transactional
-    public void execute(MentoSignupRequestDTO mentoSignupRequestDTO){
-        List<Certification> certifications = certificationService.getCertifications(mentoSignupRequestDTO.getCertificationIds());
-        mentoService.saveMento(mentoSignupRequestDTO,certifications);
+    public void execute(MentoSignupRequestDTO mentoSignupRequestDTO, List<MultipartFile> certifications) throws IOException {
+        List<Certification> savedCertifications = certificationService.saveCertifications(certifications);
+        mentoService.saveMento(mentoSignupRequestDTO,savedCertifications);
     }
 
 }

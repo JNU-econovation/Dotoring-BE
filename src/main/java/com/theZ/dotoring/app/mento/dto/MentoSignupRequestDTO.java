@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
@@ -24,8 +25,6 @@ public class MentoSignupRequestDTO {
     private String job;
 
     private String major;
-
-    private List<Long> certificationIds;
 
     @Size(min = 3, max = 8, message = "이름은 3자 이상 8자 이하로 입력해주세요.")
     private String nickname;

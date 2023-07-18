@@ -7,7 +7,6 @@ import lombok.Getter;
 import java.util.List;
 
 @Data
-@Getter
 @Builder
 public class MemberInfoResponseDTO {
 
