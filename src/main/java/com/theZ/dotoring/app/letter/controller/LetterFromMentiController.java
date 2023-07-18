@@ -47,10 +47,10 @@ public class LetterFromMentiController {
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    @GetMapping("api/menti/room/{mentoId}/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) throws NotFoundRoomException {
+    @GetMapping("api/menti/room/{mentiId}")
+    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentiId") Long mentiId) throws NotFoundRoomException {
         // mentiId : 멘티인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
-        return ApiResponseGenerator.success(getRoomByMentiHandler.execute(mentoId, mentiId), HttpStatus.OK);
+        return ApiResponseGenerator.success(getRoomByMentiHandler.execute(mentiId), HttpStatus.OK);
     }
 
     @GetMapping("api/menti/letter/{roomPK}/{mentiId}")

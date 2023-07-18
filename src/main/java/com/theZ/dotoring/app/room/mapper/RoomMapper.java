@@ -19,6 +19,7 @@ public interface RoomMapper {
     // List<Room> -> List<RoomResponseDto> 매핑, 이 때 반드시 Room -> RoomResponseDto 메서드가 먼저 있어야 한다.
     ArrayList<RoomResponseDTO> toDTOs(List<Room> room);
 
+    @Mapping(source = "roomId", target = "roomPK")
     @Mapping(source = "receiver.nickname", target = "nickname")
     @Mapping(source = "receiver.id", target = "memberPK")
     @Mapping(source = "letterList", target = "lastLetter", qualifiedByName = "letterListToStr")

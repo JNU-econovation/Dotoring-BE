@@ -2,6 +2,7 @@ package com.theZ.dotoring.app.room.service;
 
 import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.app.menti.service.MentiService;
+import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.app.mento.service.MentoService;
 import com.theZ.dotoring.app.room.domain.Room;
 import com.theZ.dotoring.app.room.repository.RoomRepository;
@@ -55,11 +56,26 @@ public class RoomService {
     }
 
     @Transactional(readOnly = true)
-    public List<Room> findAllByUserId(Long mentoId, Long mentiId) throws NotFoundRoomException {
-        List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mentoService.findMento(mentoId), mentiService.findMenti(mentiId))
+    public List<Room> findAllByMentoId(Long mentoId) throws NotFoundRoomException {
+        // 분기 처리 필요할 듯
+        // 만약 멘토 Id가 room에서 writer or menti에 있는 것들 처리하기
+        
+        List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mentoService.findMento(mentoId), mentoService.findMento(mentoId))
                 .orElseThrow(() -> new NotFoundRoomException(MessageCode.ROOM_NOT_FOUND));
         return rooms;
     }
+
+    @Transactional(readOnly = true)
+    public List<Room> findAllByMentiId(Long mentiId) throws NotFoundRoomException {
+        // 분기 처리 필요할 듯
+        // 만약 멘토 Id가 room에서 writer or menti에 있는 것들 처리하기
+
+        List<Room> rooms = roomRepository.findAllByWriterOrReceiver(mentiService.findMenti(mentiId), mentiService.findMenti(mentiId))
+                .orElseThrow(() -> new NotFoundRoomException(MessageCode.ROOM_NOT_FOUND));
+        return rooms;
+    }
+
+
 
     private Room saveRoom(Room room) {
         return roomRepository.save(room);
