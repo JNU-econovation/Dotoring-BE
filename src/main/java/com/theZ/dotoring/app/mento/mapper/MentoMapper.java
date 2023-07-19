@@ -10,6 +10,7 @@ public class MentoMapper {
         return MentoCardResponseDTO.builder()
                 .id(mento.getId())
                 .nickname(mento.getNickname())
+                .mentoringSystem(mento.getMentoringSystem())
                 .introduction(mento.getIntroduction())
                 .profileImage(mento.getProfileImage())
                 .major(mento.getMajor())

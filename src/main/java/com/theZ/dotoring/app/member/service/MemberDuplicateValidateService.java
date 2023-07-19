@@ -23,9 +23,9 @@ public class MemberDuplicateValidateService {
         });
     }
 
-    public void validateLoginId(MemberLoginIdRequestDTO memberLoginIdRequestDTO) {
+    public void validateLoginId(String loginId) {
         mentoRepository.findAll().stream().forEach(i -> {
-            if(i.getEmail().equals(memberLoginIdRequestDTO.getLoginId())){
+            if(i.getEmail().equals(loginId)){
                 throw new LoginIdDuplicateException(MessageCode.DUPLICATED_LOGIN_ID);
             }
         });

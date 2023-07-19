@@ -34,7 +34,7 @@ public class MemberController {
 
     @PostMapping("/member/loginId")
     public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberLoginId(@RequestBody @Valid MemberLoginIdRequestDTO memberLoginIdRequestDTO){
-        memberDuplicateValidateService.validateLoginId(memberLoginIdRequestDTO);
+        memberDuplicateValidateService.validateLoginId(memberLoginIdRequestDTO.getLoginId());
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 

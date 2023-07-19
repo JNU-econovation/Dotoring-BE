@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -53,5 +54,11 @@ public class Menti extends Member {
         menti.mappingCertification(certifications);
         return menti;
     }
+
+    public void updateSchool(String school) { this.school = school; }
+
+    public void updateGrade(Long grade) { this.grade = grade; }
+
+    public void updatePreferredMentoring(String preferredMentoring) { this.preferredMentoring = preferredMentoring; }
 
 }
