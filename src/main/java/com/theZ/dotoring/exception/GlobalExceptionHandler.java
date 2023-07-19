@@ -1,11 +1,13 @@
 package com.theZ.dotoring.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
 import com.theZ.dotoring.common.MessageCode;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -88,5 +90,11 @@ public class GlobalExceptionHandler {
     public ApiResponse<ApiResponse.CustomBody> handleNotFindRoomException(NotFoundRoomException e){
         return ApiResponseGenerator.fail(MessageCode.ROOM_NOT_FOUND.getCode(),MessageCode.ROOM_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleHttpMessageNotReadableExceptionn(HttpMessageNotReadableException e){
+        return ApiResponseGenerator.fail(MessageCode.ENUM_NOT_FOUND.getCode(),MessageCode.ENUM_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
 
 }

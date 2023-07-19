@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -54,5 +55,15 @@ public class Mento extends Member {
         mento.mappingCertification(certifications);
         return mento;
     }
+
+    public void updateCompany(String company) {
+        this.company = company;
+    }
+
+    public void updateCareerLevel(Long careerLevel) {
+        this.careerLevel = careerLevel;
+    }
+
+    public void updateMentoringSystem(String mentoringSystem) {this.mentoringSystem = mentoringSystem;}
 
 }

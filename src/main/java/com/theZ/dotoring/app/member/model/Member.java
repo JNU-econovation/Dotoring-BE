@@ -76,4 +76,17 @@ public abstract class Member extends CommonEntity {
         this.status = Status.ACTIVE;
     }
 
+    public void updateProfileImage(String profileImage) { this.profileImage = profileImage; }
+
+    public void updateMajor(Major major) {
+        this.major = major;
+    }
+
+    public void updateJob(Job job) { this.job = job;}
+
+    public void updateIntroduction(String introduction) { this.introduction = introduction; }
+
+    public void updateloginId(String loginId) { this.loginId = loginId; }
+
+    public void updatePwd(String password) { this.password = password; }
 }

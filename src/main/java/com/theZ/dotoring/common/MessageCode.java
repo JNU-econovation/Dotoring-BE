@@ -17,8 +17,9 @@ public enum MessageCode {
 
     ROOM_NOT_FOUND("4013","채팅방이 존재하지 않습니다."),
     
-    LETTER_NOT_FOUND("4014","쪽지가 존재하지 않습니다.");
+    LETTER_NOT_FOUND("4014","쪽지가 존재하지 않습니다."),
 
+    ENUM_NOT_FOUND("4015","해당 enum이 존재하지 않습니다.");
 
     private final String code;
     private final String value;

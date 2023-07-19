@@ -1,15 +1,11 @@
 package com.theZ.dotoring.app.menti.controller;
 
 
-import com.theZ.dotoring.app.menti.dto.MentiCardResponseDTO;
-import com.theZ.dotoring.app.menti.dto.MentiRequiredCondition;
-import com.theZ.dotoring.app.menti.dto.MentiSignupRequestDTO;
-import com.theZ.dotoring.app.menti.handler.FindAllMentiHandler;
-import com.theZ.dotoring.app.menti.handler.SaveMentiHandler;
+import com.theZ.dotoring.app.menti.dto.*;
+import com.theZ.dotoring.app.menti.handler.*;
 import com.theZ.dotoring.app.menti.mapper.MentiMapper;
 import com.theZ.dotoring.app.menti.service.MentiService;
-import com.theZ.dotoring.app.mento.dto.MentoCardResponseDTO;
-import com.theZ.dotoring.app.mento.dto.MentoRequiredCondition;
+import com.theZ.dotoring.app.mento.dto.*;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +25,13 @@ public class MentiController {
 
     private final SaveMentiHandler mentiHandler;
     private final FindAllMentiHandler findAllMentiHandler;
+
+    private final UpdateMentiInfoHandler updateMentiInfoHandler;
+
+    private final UpdateMentiAccountHandler updateMentiAccountHandler;
+
+    private final UpdateMentiSysHandler updateMentiSysHandler;
+
     private final MentiService mentiService;
 
     @PostMapping("/menti")
@@ -60,4 +63,25 @@ public class MentiController {
         return ApiResponseGenerator.success(mentiCardResponseDTO,HttpStatus.OK);
     }
 
+    // 소속, 직무 분야, n년차, 졸업 학과 수정
+    @PutMapping("menti/info/{id}")
+    public ApiResponse<ApiResponse.CustomBody<Void>> updateMentiInfoById(@RequestBody @Valid MentiInfoUpdateRequestDTO mentiInfoUpdateRequestDTO, @PathVariable Long id) throws IOException {
+        updateMentiInfoHandler.execute(mentiInfoUpdateRequestDTO, id);
+        return ApiResponseGenerator.success(HttpStatus.OK);
+    }
+
+    // 멘토링 방식 최초 작성
+    @PutMapping("menti/system/{id}")
+    public ApiResponse<ApiResponse.CustomBody<Void>> updateMentiSysById(@RequestBody @Valid MentiSysUpdateReqDTO mentiSysUpdateReqDTO, @PathVariable Long id) throws IOException {
+        updateMentiSysHandler.execute(mentiSysUpdateReqDTO, id);
+        return ApiResponseGenerator.success(HttpStatus.OK);
+    }
+
+
+    // 계정 설정(아이디, 비밀번호 재 설정)
+    @PutMapping("menti/account/{id}")
+    public ApiResponse<ApiResponse.CustomBody<Void>> updateMentiAccountById(@RequestBody @Valid MentiAccountUpdateReq mentiAccountUpdateReq, @PathVariable Long id) throws IOException {
+        updateMentiAccountHandler.execute(mentiAccountUpdateReq, id);
+        return ApiResponseGenerator.success(HttpStatus.OK);
+    }
 }
