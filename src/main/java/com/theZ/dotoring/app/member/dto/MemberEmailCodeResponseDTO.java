@@ -10,5 +10,6 @@ import lombok.Getter;
 public class MemberEmailCodeResponseDTO {
 
     private String emailVerificationCode;
+
 }
 

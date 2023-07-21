@@ -84,4 +84,6 @@ public class MentiController {
         updateMentiAccountHandler.execute(mentiAccountUpdateReq, id);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
+
+
 }
