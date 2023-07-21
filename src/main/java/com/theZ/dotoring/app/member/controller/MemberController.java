@@ -24,28 +24,22 @@ public class MemberController {
     private final MemberDuplicateValidateService memberDuplicateValidateService;
     private final MemberEmailService memberEmailService;
 
-    @PostMapping("/member/nickname")
+    @PostMapping("/member/validate-nickname")
     public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberNickname(@RequestBody @Valid MemberNicknameRequestDTO memberNicknameRequestDTO){
         memberDuplicateValidateService.validateNickname(memberNicknameRequestDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    @PostMapping("/member/loginId")
+    @PostMapping("/member/validate-loginId")
     public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberLoginId(@RequestBody @Valid MemberLoginIdRequestDTO memberLoginIdRequestDTO){
         memberDuplicateValidateService.validateLoginId(memberLoginIdRequestDTO.getLoginId());
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
     @GetMapping("/member/email")
-    public ApiResponse<ApiResponse.CustomBody<MemberEmailCodeResponseDTO>> sendEmail(@RequestBody @Valid MemberEmailRequestDTO memberEmailRequestDTO) throws MessagingException {
+    public ApiResponse<ApiResponse.CustomBody<MemberEmailCodeResponseDTO>> findLoginId(@Valid MemberEmailRequestDTO memberEmailRequestDTO) throws MessagingException {
         MemberEmailCodeResponseDTO memberEmailCodeResponseDTO = memberEmailService.sendEmail(memberEmailRequestDTO);
         return ApiResponseGenerator.success(memberEmailCodeResponseDTO,HttpStatus.OK);
-    }
-
-    @PostMapping("member/validate-emailCode")
-    public ApiResponse<ApiResponse.CustomBody<String>> sendEmail(@RequestBody @Valid EmailCodeRequestDTO emailCodeRequestDTO) throws MessagingException {
-        String loginId = memberEmailService.getLoginIdByCode(emailCodeRequestDTO.getCode());
-        return ApiResponseGenerator.success(loginId,HttpStatus.OK);
     }
 
     @GetMapping("/member/job-major")

@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class EmailCodeRequestDTO {
 
-    String code;
+    private String code;
 }

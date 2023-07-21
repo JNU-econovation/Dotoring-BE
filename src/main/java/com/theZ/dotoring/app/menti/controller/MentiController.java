@@ -1,11 +1,14 @@
 package com.theZ.dotoring.app.menti.controller;
 
 
+import com.theZ.dotoring.app.member.dto.EmailCodeRequestDTO;
+import com.theZ.dotoring.app.member.dto.MemberPasswordRequestDTO;
 import com.theZ.dotoring.app.menti.dto.*;
 import com.theZ.dotoring.app.menti.handler.*;
 import com.theZ.dotoring.app.menti.mapper.MentiMapper;
 import com.theZ.dotoring.app.menti.service.MentiService;
 import com.theZ.dotoring.app.mento.dto.*;
+import com.theZ.dotoring.app.mento.handler.FindMentoLoginIdHandler;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +37,10 @@ public class MentiController {
     private final UpdateMentiSysHandler updateMentiSysHandler;
 
     private final MentiService mentiService;
+
+    private final FindMentiLoginIdHandler findMentiLoginIdHandler;
+
+    private final FindMentiPasswordHandler findMentiPasswordHandler;
 
     @PostMapping("/menti")
     public ApiResponse<ApiResponse.CustomBody<Void>> saveMenti(@RequestPart List<MultipartFile> certifications,@RequestPart @Valid MentiSignupRequestDTO mentiSignupRequestDTO) throws IOException {
@@ -61,6 +69,16 @@ public class MentiController {
     public ApiResponse<ApiResponse.CustomBody<MentiCardResponseDTO>> findMentiById(@PathVariable Long id){
         MentiCardResponseDTO mentiCardResponseDTO = MentiMapper.from(mentiService.findMenti(id));
         return ApiResponseGenerator.success(mentiCardResponseDTO,HttpStatus.OK);
+    }
+
+    @GetMapping("/menti/loginId")
+    public ApiResponse<ApiResponse.CustomBody<String>> findLoginId(@Valid EmailCodeRequestDTO emailCodeRequestDTO) throws MessagingException {
+        return ApiResponseGenerator.success(findMentiLoginIdHandler.execute(emailCodeRequestDTO),HttpStatus.OK);
+    }
+
+    @GetMapping("/menti/password")
+    public ApiResponse<ApiResponse.CustomBody<String>> findPassword(@Valid MemberPasswordRequestDTO memberPasswordRequestDTO) throws MessagingException {
+        return ApiResponseGenerator.success(findMentiPasswordHandler.execute(memberPasswordRequestDTO),HttpStatus.OK);
     }
 
     // 소속, 직무 분야, n년차, 졸업 학과 수정

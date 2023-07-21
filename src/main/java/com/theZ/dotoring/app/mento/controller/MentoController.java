@@ -1,6 +1,8 @@
 package com.theZ.dotoring.app.mento.controller;
 
 
+import com.theZ.dotoring.app.member.dto.EmailCodeRequestDTO;
+import com.theZ.dotoring.app.member.dto.MemberPasswordRequestDTO;
 import com.theZ.dotoring.app.mento.dto.*;
 import com.theZ.dotoring.app.mento.handler.*;
 import com.theZ.dotoring.app.mento.mapper.MentoMapper;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +37,10 @@ public class MentoController {
 
     private final MentoService mentoService;
 
+    private final FindMentoLoginIdHandler findMentoLoginIdHandler;
+
+    private final FindMentoPasswordHandler findMentoPasswordHandler;
+
     @PostMapping("/mento")
     public ApiResponse<ApiResponse.CustomBody<Void>> saveMento(@RequestPart List<MultipartFile> certifications ,@RequestPart @Valid MentoSignupRequestDTO mentoSignupRequestDTO) throws IOException {
         saveMentoHandler.execute(mentoSignupRequestDTO,certifications);
@@ -47,6 +54,16 @@ public class MentoController {
         // todo springsecurity 적용한면, metiId를 받을 필요가 없다.
         mentoRequiredCondition.initCondition();
         return ApiResponseGenerator.success(findAllMentoHandler.execute(lastMentoId,size,mentiId, mentoRequiredCondition),HttpStatus.OK);
+    }
+
+    @GetMapping("/mento/loginId")
+    public ApiResponse<ApiResponse.CustomBody<String>> findLoginId(@ModelAttribute @Valid EmailCodeRequestDTO emailCodeRequestDTO) {
+        return ApiResponseGenerator.success(findMentoLoginIdHandler.execute(emailCodeRequestDTO),HttpStatus.OK);
+    }
+
+    @GetMapping("/mento/password")
+    public ApiResponse<ApiResponse.CustomBody<String>> findPassword(@ModelAttribute @Valid MemberPasswordRequestDTO memberPasswordRequestDTO) throws MessagingException {
+        return ApiResponseGenerator.success(findMentoPasswordHandler.execute(memberPasswordRequestDTO),HttpStatus.OK);
     }
 
     @GetMapping("/mento/{id}")

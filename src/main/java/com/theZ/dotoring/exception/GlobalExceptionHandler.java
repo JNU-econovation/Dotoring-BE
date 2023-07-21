@@ -6,6 +6,8 @@ import com.theZ.dotoring.common.ApiResponseGenerator;
 import com.theZ.dotoring.common.MessageCode;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -74,10 +76,19 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleConstraintViolationException(ConstraintViolationException e){
+        return ApiResponseGenerator.fail(MessageCode.DUPLICATED_VALUE.getCode(),MessageCode.DUPLICATED_VALUE.getValue(),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleConstraintViolationException(DataIntegrityViolationException e){
+        return ApiResponseGenerator.fail(MessageCode.DUPLICATED_VALUE.getCode(),MessageCode.DUPLICATED_VALUE.getValue(),HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(RuntimeException.class)
     public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(RuntimeException e){
-        return ApiResponseGenerator.fail(e.getMessage(),null, HttpStatus.BAD_REQUEST);
+        return ApiResponseGenerator.fail(MessageCode.WRONG_REQUEST.getCode(),MessageCode.WRONG_REQUEST.getValue(), HttpStatus.BAD_REQUEST);
     }
     
     // 유효성 어노테이션 핸들링
