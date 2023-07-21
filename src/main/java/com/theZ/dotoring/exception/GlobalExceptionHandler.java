@@ -69,6 +69,11 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(EmailCodeException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleLoginIdDuplicateException(EmailCodeException e){
+        return ApiResponseGenerator.fail(e.messageCode.getCode(),e.messageCode.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(RuntimeException.class)
     public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(RuntimeException e){

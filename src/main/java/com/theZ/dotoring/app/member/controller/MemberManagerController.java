@@ -1,7 +1,7 @@
 package com.theZ.dotoring.app.member.controller;
 
 import com.theZ.dotoring.app.member.dto.MemberInfoResponseDTO;
-import com.theZ.dotoring.app.member.service.MemberService;
+import com.theZ.dotoring.app.member.service.MemberManageService;
 import com.theZ.dotoring.common.ApiResponse;
 import com.theZ.dotoring.common.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class MemberManagerController {
 
-    private final MemberService memberService;
+    private final MemberManageService memberManageService;
 
     @GetMapping("/admin/wait-member")
     public ApiResponse<ApiResponse.CustomBody<Page<MemberInfoResponseDTO>>> getWaitMember(Pageable pageable, @RequestParam(required = false) String condition){
@@ -23,7 +23,7 @@ public class MemberManagerController {
         if(!check(condition)){
             throw new IllegalArgumentException("condition은 I와 O만 들어올 수 있습니다.");
         }
-        Page<MemberInfoResponseDTO> memberInfoResponseDTO = memberService.findWaitMember(pageable, condition);
+        Page<MemberInfoResponseDTO> memberInfoResponseDTO = memberManageService.findWaitMember(pageable, condition);
         return ApiResponseGenerator.success(memberInfoResponseDTO, HttpStatus.OK);
     }
 
@@ -36,7 +36,7 @@ public class MemberManagerController {
 
     @PatchMapping("/admin/member")
     public ApiResponse<ApiResponse.CustomBody<Void>> approveMember(@RequestParam Long id){
-        memberService.approveMember(id);
+        memberManageService.approveMember(id);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 

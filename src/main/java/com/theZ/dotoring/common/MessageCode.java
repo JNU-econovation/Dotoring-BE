@@ -11,6 +11,8 @@ public enum MessageCode {
     DUPLICATED_NICKNAME("4009","중복된 닉네임이 존재합니다."),
     DUPLICATED_LOGIN_ID("4010","중복된 아이디가 존재합니다."),
 
+    WRONG_CODE("4077","잘못된 코드입니다."),
+
     VALIDATION_FAIL("4011","유효성 검증 실패"),
 
     LIMIT_FILE_SIZE("4012","파일 사이즈는 20MB 입니다."),
