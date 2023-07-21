@@ -20,7 +20,6 @@ public class UpdateMentoAccountHandler {
 
     @Transactional
     public void execute(MentoAccountUpdateReq mentoAccountUpdateReq, Long Id) throws IOException {
-        
         // 아이디 중복 검사
         DuplicateValidateService.validateLoginId(mentoAccountUpdateReq.getLoginId());
 

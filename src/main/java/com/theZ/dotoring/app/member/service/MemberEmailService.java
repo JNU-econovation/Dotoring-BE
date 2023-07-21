@@ -43,10 +43,24 @@ public class MemberEmailService {
         return memberEmailCodeResponseDTO;
     }
 
-    private String setContext(String code) { // 타임리프 설정하는 코드
+    public void sendPasswordByEmail(String email, String password){
+//        MimeMessage message = javaMailSender.createMimeMessage();
+//        message.addRecipients(MimeMessage.RecipientType.TO, email); // 보낼 이메일 설정
+//        message.setSubject("안녕하세요. dotoring입니다."); // 이메일 제목
+//        message.setText(setContext(password, "utf-8", "html"); // 내용 설정(Template Process)
+//        javaMailSender.send(message);
+    }
+
+    private String setContextToCode(String code) { // 타임리프 설정하는 코드
         Context context = new Context();
         context.setVariable("code", code);
-        return engine.process("mail", context);
+        return engine.process("mailCode", context);
+    }
+
+    private String setContextToPassword(String password){
+        Context context = new Context();
+        context.setVariable("password", password);
+        return engine.process("mailPassword", context);
     }
 
     private MemberEmailCodeResponseDTO createCode() {
@@ -55,19 +69,12 @@ public class MemberEmailService {
 
 
 
-    private String validateCode(String code){
+    public String validateCode(String code){
         String email = redisUtil.getData(code); // 입력 받은 인증 코드(key)를 이용해 email(value)을 꺼낸다.
         if (email == null) { // email이 존재하지 않으면, 유효 기간 만료이거나 코드 잘못 입력
             throw new EmailCodeException(MessageCode.WRONG_CODE);
         }
         return email;
-    } 
-    @Transactional
-    public String getLoginIdByCode(String code) {
-        String email = validateCode(code);
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
-        redisUtil.deleteData(code);
-        return member.getLoginId();
     }
 
 }

@@ -42,6 +42,12 @@ public class MentiService {
     }
 
     @Transactional(readOnly = true)
+    public String findMentiLoginId(String email){
+        Menti menti = mentiRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("존재하지 않는 멘티입니다."));
+        return menti.getLoginId();
+    }
+
+    @Transactional(readOnly = true)
     public Slice<MentiCardResponseDTO> findAllMentiBySlice(Long lastMentiId, Integer size, MentiFilterCondition mentiFilterCondition){
         PageRequest pageRequest = PageRequest.of(0, size);
         Slice<MentiCardResponseDTO> mentiSlice = mentiQueryRepository.findAllBySlice(lastMentiId, mentiFilterCondition, pageRequest);
