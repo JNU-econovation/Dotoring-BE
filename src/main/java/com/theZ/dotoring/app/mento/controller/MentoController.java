@@ -1,6 +1,7 @@
 package com.theZ.dotoring.app.mento.controller;
 
 
+import com.theZ.dotoring.app.auth.MemberDetails;
 import com.theZ.dotoring.app.member.dto.EmailCodeRequestDTO;
 import com.theZ.dotoring.app.member.dto.MemberPasswordRequestDTO;
 import com.theZ.dotoring.app.mento.dto.*;
@@ -12,12 +13,14 @@ import com.theZ.dotoring.common.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -53,7 +56,7 @@ public class MentoController {
             @ModelAttribute MentoRequiredCondition mentoRequiredCondition){
         // todo springsecurity 적용한면, metiId를 받을 필요가 없다.
         mentoRequiredCondition.initCondition();
-        return ApiResponseGenerator.success(findAllMentoHandler.execute(lastMentoId,size,mentiId, mentoRequiredCondition),HttpStatus.OK);
+        return ApiResponseGenerator.success(findAllMentoHandler.execute(lastMentoId, size, memberDetails.getId(),mentoRequiredCondition),HttpStatus.OK);
     }
 
     @GetMapping("/mento/loginId")
@@ -67,7 +70,8 @@ public class MentoController {
     }
 
     @GetMapping("/mento/{id}")
-    public ApiResponse<ApiResponse.CustomBody<MentoCardResponseDTO>> findMentoById(@PathVariable Long id){
+    public ApiResponse<ApiResponse.CustomBody<MentoCardResponseDTO>> findMentoById(@PathVariable Long id, Principal principal){
+        System.out.println("ans : " + principal.getName());
         MentoCardResponseDTO mentoCardResponseDTO = MentoMapper.from(mentoService.findMento(id));
         return ApiResponseGenerator.success(mentoCardResponseDTO,HttpStatus.OK);
     }

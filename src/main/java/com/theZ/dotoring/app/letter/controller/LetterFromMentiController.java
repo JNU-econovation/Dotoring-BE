@@ -1,5 +1,6 @@
 package com.theZ.dotoring.app.letter.controller;
 
+import com.theZ.dotoring.app.auth.MemberDetails;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberRequestDTO;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberResponseDTO;
 import com.theZ.dotoring.app.letter.handler.menti.CreateLetterByMentiHandler;
@@ -14,6 +15,7 @@ import com.theZ.dotoring.exception.NotFoundRoomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,10 +35,10 @@ public class LetterFromMentiController {
     private final GetRoomByMentiHandler getRoomByMentiHandler;
 
 
-    @PostMapping("api/menti/letter/out/{mentoId}/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereOut(@Valid @RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @PathVariable("mentiId") Long mentiId) {
+    @PostMapping("api/menti/letter/out/{mentoId}")
+    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereOut(@Valid @RequestBody LetterByMemberRequestDTO letterRequestDTO, @PathVariable("mentoId") Long mentoId, @AuthenticationPrincipal MemberDetails memberDetails) {
         // mentiId : 멘티인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
-        createLetterByMentiHandler.execute(letterRequestDTO, mentoId, mentiId);
+        createLetterByMentiHandler.execute(letterRequestDTO, mentoId, memberDetails.getId());
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
@@ -47,15 +49,15 @@ public class LetterFromMentiController {
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    @GetMapping("api/menti/room/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@PathVariable("mentiId") Long mentiId) throws NotFoundRoomException {
+    @GetMapping("api/menti/room")
+    public ApiResponse<ApiResponse.CustomBody<List<RoomResponseDTO>>> getRooms(@AuthenticationPrincipal MemberDetails memberDetails) throws NotFoundRoomException {
         // mentiId : 멘티인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
-        return ApiResponseGenerator.success(getRoomByMentiHandler.execute(mentiId), HttpStatus.OK);
+        return ApiResponseGenerator.success(getRoomByMentiHandler.execute(memberDetails.getId()), HttpStatus.OK);
     }
 
-    @GetMapping("api/menti/letter/{roomPK}/{mentiId}")
+    @GetMapping("api/menti/letter/{roomPK}")
     public ApiResponse<ApiResponse.CustomBody<Slice<LetterByMemberResponseDTO>>> getLetters(@RequestParam int page, @RequestParam int size,
-                                                       @PathVariable("roomPK") Long roomPK, @PathVariable("mentiId") Long mentiId) throws NotFoundLetterException {
-        return ApiResponseGenerator.success(getLetterByRoomHandler.execute(page, size, roomPK, mentiId), HttpStatus.OK);
+                                                       @PathVariable("roomPK") Long roomPK, @AuthenticationPrincipal MemberDetails memberDetails) throws NotFoundLetterException {
+        return ApiResponseGenerator.success(getLetterByRoomHandler.execute(page, size, roomPK, memberDetails.getId()), HttpStatus.OK);
     }
 }

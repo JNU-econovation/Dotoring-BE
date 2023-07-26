@@ -19,7 +19,6 @@ public class UpdateMentiAccountHandler {
 
     @Transactional
     public void execute(MentiAccountUpdateReq mentiAccountUpdateReq, Long Id) throws IOException {
-
         // 아이디 중복 검사
         DuplicateValidateService.validateLoginId(mentiAccountUpdateReq.getLoginId());
 

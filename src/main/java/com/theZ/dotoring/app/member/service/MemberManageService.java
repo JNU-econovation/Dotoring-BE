@@ -8,6 +8,8 @@ import com.theZ.dotoring.app.member.mapper.MemberMapper;
 import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.app.member.repository.MemberQueryRepository;
 import com.theZ.dotoring.app.member.repository.MemberRepository;
+import com.theZ.dotoring.common.TokenGenerator;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

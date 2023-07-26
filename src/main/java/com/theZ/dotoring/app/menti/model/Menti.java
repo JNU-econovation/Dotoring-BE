@@ -38,6 +38,12 @@ public class Menti extends Member {
         this.preferredMentoring = preferredMentoring;
     }
 
+    public Menti(String loginId){
+        super(loginId);
+    }
+
+
+
     public static Menti createMenti(String loginId, String password, String email, String nickname, String introduction, String profileImage, List<Certification> certifications,String school,Long grade, Major major,Job job){
         Menti menti = Menti.builder()
                 .loginId(loginId)

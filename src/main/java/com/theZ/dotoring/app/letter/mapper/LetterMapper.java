@@ -33,6 +33,7 @@ public interface LetterMapper {
     @Mapping(source = "letter.id", target = "letterId")
     @Mapping(source = "letter.createdAt", target = "createdAt")
     @Mapping(source = "letter.writer.id", target = "writer", qualifiedByName = "map")
+    @Mapping(source = "letter.writer.nickname", target = "nickname")
     LetterByMemberResponseDTO toDTO(Letter letter, @Context Member member);
 
     // 메서드는 source를 인자로 받는다.

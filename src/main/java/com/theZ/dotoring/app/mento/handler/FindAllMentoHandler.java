@@ -1,5 +1,6 @@
 package com.theZ.dotoring.app.mento.handler;
 
+import com.theZ.dotoring.app.auth.MemberDetails;
 import com.theZ.dotoring.app.member.mapper.MemberMapper;
 import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.menti.service.MentiService;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 
