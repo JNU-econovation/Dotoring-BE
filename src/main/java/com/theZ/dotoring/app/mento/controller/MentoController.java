@@ -56,7 +56,7 @@ public class MentoController {
             @ModelAttribute MentoRequiredCondition mentoRequiredCondition){
         // todo springsecurity 적용한면, metiId를 받을 필요가 없다.
         mentoRequiredCondition.initCondition();
-        return ApiResponseGenerator.success(findAllMentoHandler.execute(lastMentoId, size, memberDetails.getId(), memberDetails.getId(), mentoRequiredCondition),HttpStatus.OK);
+        return ApiResponseGenerator.success(findAllMentoHandler.execute(lastMentoId, size, memberDetails.getId(),mentoRequiredCondition),HttpStatus.OK);
     }
 
     @GetMapping("/mento/loginId")

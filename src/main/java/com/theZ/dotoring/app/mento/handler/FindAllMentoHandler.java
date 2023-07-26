@@ -24,7 +24,7 @@ public class FindAllMentoHandler {
     private final MentiService mentiService;
     private final MentoService mentoService;
 
-    public Slice<MentoCardResponseDTO> execute(Long lastMentoId, Integer size, Long mentoId, Long mentiId, MentoRequiredCondition mentoRequiredCondition){
+    public Slice<MentoCardResponseDTO> execute(Long lastMentoId, Integer size, Long mentiId, MentoRequiredCondition mentoRequiredCondition){
         MentoFilterCondition mentoFilterCondition = makeFilterCondition(mentoRequiredCondition, mentiId);
         return mentoService.findAllMentoBySlice(lastMentoId, size, mentoFilterCondition);
     }
