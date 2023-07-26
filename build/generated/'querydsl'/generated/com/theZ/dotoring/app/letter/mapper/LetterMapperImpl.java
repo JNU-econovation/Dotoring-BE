@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-21T15:19:44+0900",
+    date = "2023-07-27T00:51:48+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 @Component
@@ -70,6 +70,7 @@ public class LetterMapperImpl implements LetterMapper {
             letterByMemberResponseDTO.createdAt( Date.from( letter.getCreatedAt().toInstant( ZoneOffset.UTC ) ) );
         }
         letterByMemberResponseDTO.writer( map( letterWriterId( letter ), member ) );
+        letterByMemberResponseDTO.nickname( letterWriterNickname( letter ) );
         letterByMemberResponseDTO.content( letter.getContent() );
 
         return letterByMemberResponseDTO.build();
@@ -88,5 +89,20 @@ public class LetterMapperImpl implements LetterMapper {
             return null;
         }
         return id;
+    }
+
+    private String letterWriterNickname(Letter letter) {
+        if ( letter == null ) {
+            return null;
+        }
+        Member writer = letter.getWriter();
+        if ( writer == null ) {
+            return null;
+        }
+        String nickname = writer.getNickname();
+        if ( nickname == null ) {
+            return null;
+        }
+        return nickname;
     }
 }

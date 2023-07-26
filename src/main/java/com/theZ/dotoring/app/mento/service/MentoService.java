@@ -8,6 +8,7 @@ import com.theZ.dotoring.app.mento.model.MentoFilterCondition;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;

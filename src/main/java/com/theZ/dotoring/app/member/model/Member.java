@@ -32,7 +32,7 @@ public abstract class Member extends CommonEntity {
     @Size(min = 8, max = 12)
     private String loginId;
 
-    @Size(min = 7, max = 12)
+//    @Size(min = 7, max = 12)
     private String password;
 
     @Email
@@ -85,4 +85,8 @@ public abstract class Member extends CommonEntity {
     public void updateloginId(String loginId) { this.loginId = loginId; }
 
     public void updatePwd(String password) { this.password = password; }
+
+    public Member(String loginId) {
+        this.loginId = loginId;
+    }
 }

@@ -41,7 +41,7 @@ public class MentoController {
 
     private final FindMentoPasswordHandler findMentoPasswordHandler;
 
-    @PostMapping("/mento")
+    @PostMapping("/signup-mento")
     public ApiResponse<ApiResponse.CustomBody<Void>> saveMento(@RequestPart List<MultipartFile> certifications ,@RequestPart @Valid MentoSignupRequestDTO mentoSignupRequestDTO) throws IOException {
         saveMentoHandler.execute(mentoSignupRequestDTO,certifications);
         return ApiResponseGenerator.success(HttpStatus.OK);
@@ -49,7 +49,7 @@ public class MentoController {
 
     @GetMapping("/mento")
     public ApiResponse<ApiResponse.CustomBody<Slice<MentoCardResponseDTO>>> findAllMentoBySlice(
-            @RequestParam(required = false) Long lastMentoId, @RequestParam(defaultValue = "10") Integer size, Long mentiId,
+            @RequestParam(required = false) Long lastMentoId, @RequestParam(defaultValue = "10") Integer size, @AuthenticationPrincipal MemberDetails memberDetails,
             @ModelAttribute MentoRequiredCondition mentoRequiredCondition){
         // todo springsecurity 적용한면, metiId를 받을 필요가 없다.
         mentoRequiredCondition.initCondition();

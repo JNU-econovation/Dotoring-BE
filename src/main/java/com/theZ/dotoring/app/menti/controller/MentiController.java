@@ -1,6 +1,7 @@
 package com.theZ.dotoring.app.menti.controller;
 
 
+import com.theZ.dotoring.app.auth.MemberDetails;
 import com.theZ.dotoring.app.member.dto.EmailCodeRequestDTO;
 import com.theZ.dotoring.app.member.dto.MemberPasswordRequestDTO;
 import com.theZ.dotoring.app.menti.dto.*;
@@ -14,12 +15,15 @@ import com.theZ.dotoring.common.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -28,6 +32,7 @@ import java.util.List;
 public class MentiController {
 
     private final SaveMentiHandler mentiHandler;
+
     private final FindAllMentiHandler findAllMentiHandler;
 
     private final UpdateMentiInfoHandler updateMentiInfoHandler;
@@ -42,7 +47,7 @@ public class MentiController {
 
     private final FindMentiPasswordHandler findMentiPasswordHandler;
 
-    @PostMapping("/menti")
+    @PostMapping("/signup-menti")
     public ApiResponse<ApiResponse.CustomBody<Void>> saveMenti(@RequestPart List<MultipartFile> certifications,@RequestPart @Valid MentiSignupRequestDTO mentiSignupRequestDTO) throws IOException {
         mentiHandler.execute(mentiSignupRequestDTO,certifications);
         return ApiResponseGenerator.success(HttpStatus.OK);
@@ -58,13 +63,12 @@ public class MentiController {
 
     @GetMapping("/menti")
     public ApiResponse<ApiResponse.CustomBody<Slice<MentiCardResponseDTO>>> findAllMentiBySlice(
-            @RequestParam(required = false) Long lastMentiId, @RequestParam(defaultValue = "10") Integer size, Long mentoId,
+            @RequestParam(required = false) Long lastMentiId, @RequestParam(defaultValue = "10") Integer size, @AuthenticationPrincipal MemberDetails memberDetails,
             @ModelAttribute MentiRequiredCondition mentiRequiredCondition){
         // 컨트롤러에서 호출하는 이유? -> 컨트롤러가 아니라 Service에서 해당 메서드를 호출하는 것은 어떨까? 컨트롤러의 책임이 아니라 생각이들었음.
         mentiRequiredCondition.initCondition();
-        return ApiResponseGenerator.success(findAllMentiHandler.execute(lastMentiId, size, mentoId, mentiRequiredCondition),HttpStatus.OK);
+        return ApiResponseGenerator.success(findAllMentiHandler.execute(lastMentiId, size, memberDetails.getId(), mentiRequiredCondition),HttpStatus.OK);
     }
-
     @GetMapping("/menti/{id}")
     public ApiResponse<ApiResponse.CustomBody<MentiCardResponseDTO>> findMentiById(@PathVariable Long id){
         MentiCardResponseDTO mentiCardResponseDTO = MentiMapper.from(mentiService.findMenti(id));

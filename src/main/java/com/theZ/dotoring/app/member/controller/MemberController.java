@@ -24,23 +24,31 @@ public class MemberController {
     private final MemberDuplicateValidateService memberDuplicateValidateService;
     private final MemberEmailService memberEmailService;
 
-    @PostMapping("/member/validate-nickname")
+    @PostMapping("/member/valid-nickname")
     public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberNickname(@RequestBody @Valid MemberNicknameRequestDTO memberNicknameRequestDTO){
         memberDuplicateValidateService.validateNickname(memberNicknameRequestDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    @PostMapping("/member/validate-loginId")
+    @PostMapping("/member/valid-loginId")
     public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberLoginId(@RequestBody @Valid MemberLoginIdRequestDTO memberLoginIdRequestDTO){
         memberDuplicateValidateService.validateLoginId(memberLoginIdRequestDTO.getLoginId());
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
+    @PostMapping("/member/valid-code")
+    public ApiResponse<ApiResponse.CustomBody<Void>> validateMemberEmailCode(@RequestBody @Valid MemberEmailCodeRequestDTO memberEmailCodeRequestDTO){
+        memberEmailService.validateCode(memberEmailCodeRequestDTO.getEmailVerificationCode(),memberEmailCodeRequestDTO.getEmail());
+        return ApiResponseGenerator.success(HttpStatus.OK);
+    }
+
     @GetMapping("/member/email")
-    public ApiResponse<ApiResponse.CustomBody<MemberEmailCodeResponseDTO>> findLoginId(@Valid MemberEmailRequestDTO memberEmailRequestDTO) throws MessagingException {
+    public ApiResponse<ApiResponse.CustomBody<MemberEmailCodeResponseDTO>> sendEmail(@Valid MemberEmailRequestDTO memberEmailRequestDTO) throws MessagingException {
         MemberEmailCodeResponseDTO memberEmailCodeResponseDTO = memberEmailService.sendEmail(memberEmailRequestDTO);
         return ApiResponseGenerator.success(memberEmailCodeResponseDTO,HttpStatus.OK);
     }
+
+
 
     @GetMapping("/member/job-major")
     public ApiResponse<ApiResponse.CustomBody<MemberJobAndMajorResponseDTO>> findJobAndMajor(){
