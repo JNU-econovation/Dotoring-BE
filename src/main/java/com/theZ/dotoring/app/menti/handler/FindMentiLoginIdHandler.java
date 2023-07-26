@@ -16,7 +16,7 @@ public class FindMentiLoginIdHandler {
     private final RedisUtil redisUtil;
 
     public String execute(EmailCodeRequestDTO emailCodeRequestDTO){
-        String email = memberEmailService.validateCode(emailCodeRequestDTO.getCode());
+        String email = memberEmailService.validateCode(emailCodeRequestDTO.getCode(), emailCodeRequestDTO.getEmail());
         redisUtil.deleteData(emailCodeRequestDTO.getCode());
         return mentiService.findMentiLoginId(email);
     }

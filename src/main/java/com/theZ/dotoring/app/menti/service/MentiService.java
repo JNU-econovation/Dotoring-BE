@@ -6,15 +6,12 @@ import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.menti.model.MentiFilterCondition;
 import com.theZ.dotoring.app.menti.repository.MentiQueryRepository;
 import com.theZ.dotoring.app.menti.repository.MentiRepository;
-import com.theZ.dotoring.app.mento.dto.MentoAccountUpdateReq;
-import com.theZ.dotoring.app.mento.dto.MentoInfoUpdateRequestDTO;
-import com.theZ.dotoring.app.mento.dto.MentoSysUpdateReqDTO;
-import com.theZ.dotoring.app.mento.model.Mento;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +25,23 @@ public class MentiService {
 
     private final MentiRepository mentiRepository;
     private final MentiQueryRepository mentiQueryRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public void saveMenti(MentiSignupRequestDTO mentiSignupRequestDTO, List<Certification> certifications){
-        Menti menti = Menti.createMenti(mentiSignupRequestDTO.getLoginId(), mentiSignupRequestDTO.getPassword(), mentiSignupRequestDTO.getEmail(), mentiSignupRequestDTO.getNickname(), mentiSignupRequestDTO.getIntroduction(),"basicProfile_47838475947393908393.png",certifications, mentiSignupRequestDTO.getSchool(), mentiSignupRequestDTO.getGrade(), Major.valueOf(mentiSignupRequestDTO.getMajor()), Job.valueOf(mentiSignupRequestDTO.getJob()));
+        Menti menti = Menti.createMenti(mentiSignupRequestDTO.getLoginId(), bCryptPasswordEncoder.encode(mentiSignupRequestDTO.getPassword()), mentiSignupRequestDTO.getEmail(), mentiSignupRequestDTO.getNickname(), mentiSignupRequestDTO.getIntroduction(),"basicProfile_47838475947393908393.png",certifications, mentiSignupRequestDTO.getSchool(), mentiSignupRequestDTO.getGrade(), Major.valueOf(mentiSignupRequestDTO.getMajor()), Job.valueOf(mentiSignupRequestDTO.getJob()));
         mentiRepository.save(menti);
     }
 
     @Transactional(readOnly = true)
     public Menti findMenti(Long mentiId){
         Menti menti = mentiRepository.findById(mentiId).orElseThrow(() -> new NoSuchElementException("존재하지 않는 멘티입니다."));
+        return menti;
+    }
+
+    @Transactional(readOnly = true)
+    public Menti findMentiByEmail(String email){
+        Menti menti = mentiRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("존재하지 않는 멘티입니다."));
         return menti;
     }
 
@@ -98,7 +102,7 @@ public class MentiService {
     }
 
     @Transactional
-    public void updateMentoAccount(MentiAccountUpdateReq mentiAccountUpdateReq, Menti menti) {
+    public void updateMentiAccount(MentiAccountUpdateReq mentiAccountUpdateReq, Menti menti) {
         if (mentiAccountUpdateReq.getLoginId() != null){
             menti.updateloginId(mentiAccountUpdateReq.getLoginId());
         }

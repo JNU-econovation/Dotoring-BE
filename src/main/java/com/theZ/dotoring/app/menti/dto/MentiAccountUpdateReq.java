@@ -1,5 +1,6 @@
 package com.theZ.dotoring.app.menti.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,4 +17,7 @@ public class MentiAccountUpdateReq {
     @Size(min = 7, max = 12)
     private String password;
 
+    public MentiAccountUpdateReq(String password) {
+        this.password = password;
+    }
 }

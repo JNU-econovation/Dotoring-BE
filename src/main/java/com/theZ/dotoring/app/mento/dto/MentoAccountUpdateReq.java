@@ -16,4 +16,7 @@ public class MentoAccountUpdateReq {
     @Size(min = 7, max = 12)
     private String password;
 
+    public MentoAccountUpdateReq(String password) {
+        this.password = password;
+    }
 }

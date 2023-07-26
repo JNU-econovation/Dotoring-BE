@@ -2,6 +2,7 @@ package com.theZ.dotoring.app.mento.model;
 
 import com.theZ.dotoring.app.certification.model.Certification;
 import com.theZ.dotoring.app.member.model.Member;
+import com.theZ.dotoring.app.member.model.UserRole;
 import com.theZ.dotoring.enums.Job;
 import com.theZ.dotoring.enums.Major;
 import com.theZ.dotoring.enums.Status;
@@ -29,9 +30,13 @@ public class Mento extends Member {
     @Size(min = 1, max = 300)
     private String mentoringSystem;
 
+    public Mento(String loginId) {
+        super(loginId);
+    }
+
     @Builder
     public Mento(String loginId, String password, String email, String nickname, String introduction, String profileImage, Status status, List<Certification> certifications, String company, Long careerLevel, Job job, Major major, String mentoringSystem) {
-        super(loginId, password, email, nickname, introduction, profileImage,"O", status, job, major, certifications);
+        super(loginId, password, email, nickname, introduction, profileImage,"O", status, job, major, certifications, UserRole.ROLE_MENTO);
         this.company = company;
         this.careerLevel = careerLevel;
         this.mentoringSystem = mentoringSystem;

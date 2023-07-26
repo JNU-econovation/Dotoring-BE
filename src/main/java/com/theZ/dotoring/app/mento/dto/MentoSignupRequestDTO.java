@@ -32,7 +32,7 @@ public class MentoSignupRequestDTO {
     @Size(min = 10, max = 100)
     private String introduction;
 
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{8,12}$", message = "아이디는 영문과 숫자를 포함한 8~12글자여야 합니다.")
+    @Pattern(regexp = "^[a-zA-Z0-9]{8,12}$", message = "아이디는 영문과 숫자를 포함한 8~12글자여야 합니다.")
     private String loginId;
 
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{7,12}$", message = "비밀번호는 영문, 숫자, 특수문자를 포함한 7~12글자여야 합니다.")

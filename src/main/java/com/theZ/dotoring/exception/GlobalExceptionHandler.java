@@ -10,6 +10,8 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -81,10 +83,16 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MessageCode.DUPLICATED_VALUE.getCode(),MessageCode.DUPLICATED_VALUE.getValue(),HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleConstraintViolationException(DataIntegrityViolationException e){
-        return ApiResponseGenerator.fail(MessageCode.DUPLICATED_VALUE.getCode(),MessageCode.DUPLICATED_VALUE.getValue(),HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(DisabledException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleConstraintViolationException(DisabledException e){
+        return ApiResponseGenerator.fail(MessageCode.WAIT_USER.getCode(),MessageCode.WAIT_USER.getValue(),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(LockedException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleConstraintViolationException(LockedException e){
+        return ApiResponseGenerator.fail(MessageCode.BAN_USER.getCode(),MessageCode.BAN_USER.getValue(),HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(RuntimeException.class)
     public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(RuntimeException e){

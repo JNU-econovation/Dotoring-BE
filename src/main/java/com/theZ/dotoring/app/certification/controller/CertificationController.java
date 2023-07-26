@@ -26,4 +26,5 @@ public class CertificationController {
 //        return ApiResponseGenerator.success(certificationService.saveCertifications(certificationNames), HttpStatus.OK);
 //    }
 
+
 }

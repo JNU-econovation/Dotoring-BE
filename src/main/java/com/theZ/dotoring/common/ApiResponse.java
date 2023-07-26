@@ -31,4 +31,5 @@ public class ApiResponse<B> extends ResponseEntity<B> {
         private Error error;
 
     }
+
 }
