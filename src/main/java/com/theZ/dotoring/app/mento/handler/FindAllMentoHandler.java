@@ -1,5 +1,6 @@
 package com.theZ.dotoring.app.mento.handler;
 
+import com.theZ.dotoring.app.auth.MemberDetails;
 import com.theZ.dotoring.app.member.mapper.MemberMapper;
 import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.menti.service.MentiService;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -22,7 +24,7 @@ public class FindAllMentoHandler {
     private final MentiService mentiService;
     private final MentoService mentoService;
 
-    public Slice<MentoCardResponseDTO> execute(Long lastMentoId, Integer size, Long mentiId, MentoRequiredCondition mentoRequiredCondition){
+    public Slice<MentoCardResponseDTO> execute(Long lastMentoId, Integer size, Long mentoId, Long mentiId, MentoRequiredCondition mentoRequiredCondition){
         MentoFilterCondition mentoFilterCondition = makeFilterCondition(mentoRequiredCondition, mentiId);
         return mentoService.findAllMentoBySlice(lastMentoId, size, mentoFilterCondition);
     }

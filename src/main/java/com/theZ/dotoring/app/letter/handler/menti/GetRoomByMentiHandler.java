@@ -1,5 +1,6 @@
 package com.theZ.dotoring.app.letter.handler.menti;
 
+import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.app.room.domain.Room;
 import com.theZ.dotoring.app.room.dto.RoomResponseDTO;
 import com.theZ.dotoring.app.room.mapper.RoomMapper;

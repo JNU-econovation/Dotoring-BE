@@ -19,5 +19,7 @@ public class LetterByMemberResponseDTO {
 
     private boolean writer;
 
+    private String nickname;
+
     private Date createdAt;
 }

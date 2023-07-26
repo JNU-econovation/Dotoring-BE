@@ -5,6 +5,7 @@ import com.theZ.dotoring.app.letter.dto.LetterByMemberRequestDTO;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberResponseDTO;
 import com.theZ.dotoring.app.letter.mapper.LetterMapper;
 import com.theZ.dotoring.app.letter.service.LetterMentiService;
+import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.app.menti.model.Menti;
 import com.theZ.dotoring.app.menti.service.MentiService;
 import com.theZ.dotoring.app.mento.model.Mento;

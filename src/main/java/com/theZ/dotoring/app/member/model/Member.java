@@ -8,10 +8,12 @@ import com.theZ.dotoring.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ import java.util.List;
         @Index(name = "idx_job" ,columnList = "job"),
         @Index(name = "idx_major", columnList = "major")
 })
-public abstract class Member extends CommonEntity {
+public abstract class Member extends CommonEntity implements Serializable {
 
     @Column(name = "LOGIN_ID", unique = true)
     @Size(min = 8, max = 12)
@@ -61,6 +63,11 @@ public abstract class Member extends CommonEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Certification> certifications = new ArrayList<>();
+
+    @Setter
+    @Column(nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     public void mappingCertification(List<Certification> certifications){
         for(Certification certification : certifications){

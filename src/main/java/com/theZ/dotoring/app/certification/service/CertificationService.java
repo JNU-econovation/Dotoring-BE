@@ -34,6 +34,5 @@ public class CertificationService {
                 .filter(certification -> certificationIds.contains(certification.getId()))
                 .collect(Collectors.toList());
     }
-
 }
 
