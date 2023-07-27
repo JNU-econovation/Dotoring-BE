@@ -21,9 +21,9 @@ public interface LetterMapper {
 
     // LetterRequestDto -> Letter 매핑
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "room", ignore = true)
     @Mapping(source = "member", target = "writer")
     @Mapping(source = "date", target = "createdAt")
-    @Mapping(target = "room", ignore = true)
     Letter toEntity(LetterByMemberRequestDTO letterRequestDTO, Member member, Date date);
 
 
