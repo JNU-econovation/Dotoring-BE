@@ -63,9 +63,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/menti/letter/**").hasRole("MENTI")
                     .antMatchers("/api/menti/room/**").hasRole("MENTI")
                     .antMatchers("/api/menti","/api/menti/{id}").hasRole("MENTO")
-                    .antMatchers("/api/mento","/api/mento/{id}").hasRole("MENTi")
-                    .antMatchers("/api/mento/**").hasRole("MENTO")
-                    .antMatchers("/api/menti/**").hasRole("MENTI")
+                    .antMatchers("/api/mento","/api/mento/{id}").hasRole("MENTI")
+                    .antMatchers("/api/mento/**").hasRole("MENTI")
+                    .antMatchers("/api/menti/**").hasRole("MENTO")
                     .antMatchers(PERMIT_PATH_PATTERN).permitAll();
                     // PERMIT_PATH_PATTERN에 해당하는 URL은 모든 사용자에게 접근이 허용됩니다. 즉, 인증된 사용자든 아니든 상관없이 모두 접근할 수 있습니다.
 
