@@ -1,9 +1,13 @@
 package com.theZ.dotoring.app.auth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theZ.dotoring.app.member.model.Member;
+import com.theZ.dotoring.common.ApiResponse;
+import com.theZ.dotoring.common.Error;
 import com.theZ.dotoring.common.TokenGenerator;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,5 +42,11 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         // 쿠키에 만료 날짜를 주지 않으면 세션쿠키가 됨-> 세션 쿠키는 브라우저 종료시 삭제
         response.addCookie(cookie);
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(HttpStatus.OK.value(),HttpStatus.OK.toString());
+        response.setContentType("application/json; charset=utf-8");
+        ApiResponse.CustomBody customBody = new ApiResponse.CustomBody(true,null, null);
+        ObjectMapper om = new ObjectMapper();
+        String responseBody = om.writeValueAsString(customBody);
+        response.getWriter().println(responseBody);
     }
 }
