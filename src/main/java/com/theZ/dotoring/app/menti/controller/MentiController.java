@@ -61,11 +61,12 @@ public class MentiController {
         MentiRequiredCondition mentiRequiredCondition : 유저로부터 받은 학과, 직무들을 저장하는 DTO
      */
 
+
     @GetMapping("/menti")
     public ApiResponse<ApiResponse.CustomBody<Slice<MentiCardResponseDTO>>> findAllMentiBySlice(
             @RequestParam(required = false) Long lastMentiId, @RequestParam(defaultValue = "10") Integer size, @AuthenticationPrincipal MemberDetails memberDetails,
             @ModelAttribute MentiRequiredCondition mentiRequiredCondition){
-        // 컨트롤러에서 호출하는 이유? -> 컨트롤러가 아니라 Service에서 해당 메서드를 호출하는 것은 어떨까? 컨트롤러의 책임이 아니라 생각이들었음.
+
         mentiRequiredCondition.initCondition();
         return ApiResponseGenerator.success(findAllMentiHandler.execute(lastMentiId, size, memberDetails.getId(), mentiRequiredCondition),HttpStatus.OK);
     }
