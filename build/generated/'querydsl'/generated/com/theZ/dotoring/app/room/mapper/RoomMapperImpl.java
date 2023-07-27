@@ -10,8 +10,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-27T11:13:44+0900",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.5 (Amazon.com Inc.)"
+    date = "2023-07-28T02:54:10+0900",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class RoomMapperImpl implements RoomMapper {
 
@@ -37,7 +37,7 @@ public class RoomMapperImpl implements RoomMapper {
 
         RoomResponseDTO.RoomResponseDTOBuilder roomResponseDTO = RoomResponseDTO.builder();
 
-        roomResponseDTO.roomPK( room.getRoomId() );
+        roomResponseDTO.roomPK( room.getId() );
         roomResponseDTO.nickname( roomReceiverNickname( room ) );
         roomResponseDTO.memberPK( roomReceiverId( room ) );
         roomResponseDTO.lastLetter( RoomMapper.letterListToStr( room.getLetterList() ) );

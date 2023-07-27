@@ -62,6 +62,7 @@ public class DataInit {
         mentiRepository.saveAll(mentis);
         mentoRepository.save(mento);
 
+        em.flush();
 
         /**
          *  1번
@@ -76,10 +77,13 @@ public class DataInit {
 
         Room roomSP1 = roomRepository.save(room1);
 
+        em.flush();
+
         List<Letter> letters = generateLetters1(roomSP1);
 
         letterRepository.saveAll(letters);
 
+        em.flush();
         /**
          *  2번
          */

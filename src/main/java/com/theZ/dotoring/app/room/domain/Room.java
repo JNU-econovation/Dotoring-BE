@@ -1,6 +1,7 @@
 package com.theZ.dotoring.app.room.domain;
 
 
+import com.theZ.dotoring.app.commonModel.CommonEntity;
 import com.theZ.dotoring.app.letter.domain.Letter;
 import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.app.menti.model.Menti;
@@ -20,10 +21,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roomId;
+public class Room extends CommonEntity {
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @Builder.Default
@@ -38,12 +36,6 @@ public class Room {
     private Member receiver;
 
     private LocalDateTime lastSendTime;
-
-    @CreatedDate
-    private LocalDateTime createAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     public void updateLastSendTime(){
         this.lastSendTime = LocalDateTime.now();

@@ -25,7 +25,7 @@ public class GetMentoLetterByRoomHandler {
     final private RoomService roomService;
 
     @Transactional
-    public Slice<LetterByMemberResponseDTO> execute(int page, int size, Long mentoId, Long roomPK) throws NotFoundLetterException {
+    public Slice<LetterByMemberResponseDTO> execute(int page, int size, Long roomPK, Long mentoId) throws NotFoundLetterException {
 
         Room room = roomService.findByRoomId(roomPK);
 
