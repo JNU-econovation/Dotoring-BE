@@ -20,6 +20,8 @@ public class RoomResponseDTO {
 
     private String lastLetter;
 
+    private String major;
+
     // Room Entity 필드
     private LocalDateTime updateAt;
 
