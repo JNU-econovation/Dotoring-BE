@@ -3,14 +3,15 @@ package com.theZ.dotoring.app.room.mapper;
 import com.theZ.dotoring.app.member.model.Member;
 import com.theZ.dotoring.app.room.domain.Room;
 import com.theZ.dotoring.app.room.dto.RoomResponseDTO;
+import com.theZ.dotoring.enums.Job;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-27T03:40:04+0900",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
+    date = "2023-07-27T11:13:44+0900",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.5 (Amazon.com Inc.)"
 )
 public class RoomMapperImpl implements RoomMapper {
 
@@ -40,6 +41,10 @@ public class RoomMapperImpl implements RoomMapper {
         roomResponseDTO.nickname( roomReceiverNickname( room ) );
         roomResponseDTO.memberPK( roomReceiverId( room ) );
         roomResponseDTO.lastLetter( RoomMapper.letterListToStr( room.getLetterList() ) );
+        Job job = roomReceiverJob( room );
+        if ( job != null ) {
+            roomResponseDTO.major( job.name() );
+        }
         roomResponseDTO.updateAt( room.getLastSendTime() );
 
         return roomResponseDTO.build();
@@ -73,5 +78,20 @@ public class RoomMapperImpl implements RoomMapper {
             return null;
         }
         return id;
+    }
+
+    private Job roomReceiverJob(Room room) {
+        if ( room == null ) {
+            return null;
+        }
+        Member receiver = room.getReceiver();
+        if ( receiver == null ) {
+            return null;
+        }
+        Job job = receiver.getJob();
+        if ( job == null ) {
+            return null;
+        }
+        return job;
     }
 }

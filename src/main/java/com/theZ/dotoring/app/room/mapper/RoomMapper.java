@@ -23,6 +23,7 @@ public interface RoomMapper {
     @Mapping(source = "receiver.nickname", target = "nickname")
     @Mapping(source = "receiver.id", target = "memberPK")
     @Mapping(source = "letterList", target = "lastLetter", qualifiedByName = "letterListToStr")
+    @Mapping(source = "receiver.job", target = "major")
     @Mapping(source = "lastSendTime", target = "updateAt")
     RoomResponseDTO toDTO(Room room);
 
