@@ -16,6 +16,7 @@ import com.theZ.dotoring.enums.Major;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,8 @@ public class DataInit {
     private final RoomRepository roomRepository;
 
     private final LetterRepository letterRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Transactional
@@ -168,7 +171,7 @@ public class DataInit {
 
     private Mento generateMentos(Certification certification1, Certification certification2) {
 
-        Mento mento = Mento.createMento("qwer1111", "qwer1111", "qwer1111@naver.com", "qwer1111", "안녕하세요, 현재 배달의 민족에서 CTO를 맡고있는 백엔드 개발자 김영한입니다.", "sun", List.of(certification1, certification2), "배달의 민족", 1L, Job.valueOf("정보통신"), Major.valueOf("컴퓨터공학전공"));
+        Mento mento = Mento.createMento("qwer1111", bCryptPasswordEncoder.encode("qwer1111"), "qwer1111@naver.com", "qwer1111", "안녕하세요, 현재 배달의 민족에서 CTO를 맡고있는 백엔드 개발자 김영한입니다.", "sun", List.of(certification1, certification2), "배달의 민족", 1L, Job.valueOf("정보통신"), Major.valueOf("컴퓨터공학전공"));
 
         return mento;
     }
