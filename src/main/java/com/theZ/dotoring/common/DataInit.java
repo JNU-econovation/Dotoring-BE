@@ -70,8 +70,9 @@ public class DataInit {
         Room room1 = Room.builder()
                 .writer(mento)
                 .receiver(mentis.get(1))
-                .updatedAt(LocalDateTime.now())
                 .build();
+
+        room1.updateLastSendTime();
 
         Room roomSP1 = roomRepository.save(room1);
 
@@ -86,8 +87,9 @@ public class DataInit {
         Room room2 = Room.builder()
                 .writer(mento)
                 .receiver(mentis.get(2))
-                .updatedAt(LocalDateTime.now())
                 .build();
+
+        room2.updateLastSendTime();
 
         Room roomSP2 = roomRepository.save(room2);
 
@@ -102,8 +104,9 @@ public class DataInit {
         Room room3 = Room.builder()
                 .writer(mento)
                 .receiver(mentis.get(3))
-                .updatedAt(LocalDateTime.now())
                 .build();
+
+        room3.updateLastSendTime();
 
         Room roomSP3 = roomRepository.save(room3);
 
@@ -118,8 +121,9 @@ public class DataInit {
         Room room4 = Room.builder()
                 .writer(mento)
                 .receiver(mentis.get(4))
-                .updatedAt(LocalDateTime.now())
                 .build();
+
+        room4.updateLastSendTime();
 
         Room roomSP4 = roomRepository.save(room4);
 
@@ -134,8 +138,9 @@ public class DataInit {
         Room room5 = Room.builder()
                 .writer(mento)
                 .receiver(mentis.get(6))
-                .updatedAt(LocalDateTime.now())
                 .build();
+
+        room5.updateLastSendTime();
 
         Room roomSP5 = roomRepository.save(room5);
 
@@ -150,8 +155,9 @@ public class DataInit {
         Room room6 = Room.builder()
                 .writer(mento)
                 .receiver(mentis.get(7))
-                .updatedAt(LocalDateTime.now())
                 .build();
+
+        room6.updateLastSendTime();
 
         Room roomSP6 = roomRepository.save(room6);
 
@@ -166,8 +172,9 @@ public class DataInit {
         Room room7 = Room.builder()
                 .writer(mento)
                 .receiver(mentis.get(7))
-                .updatedAt(LocalDateTime.now())
                 .build();
+
+        room7.updateLastSendTime();
 
         Room roomSP7 = roomRepository.save(room7);
 
