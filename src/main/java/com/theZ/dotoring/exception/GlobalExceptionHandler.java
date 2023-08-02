@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.validation.BindException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -97,6 +98,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(RuntimeException e){
         return ApiResponseGenerator.fail(MessageCode.WRONG_REQUEST.getCode(),MessageCode.WRONG_REQUEST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(BindException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleBindException(BindException e){
+        return ApiResponseGenerator.fail(e.getFieldError().getDefaultMessage(),null, HttpStatus.BAD_REQUEST);
     }
     
     // 유효성 어노테이션 핸들링
