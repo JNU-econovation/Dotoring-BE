@@ -42,7 +42,7 @@ public class MemberController {
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    @GetMapping("/member/email")
+    @GetMapping("/member/code")
     public ApiResponse<ApiResponse.CustomBody<MemberEmailCodeResponseDTO>> sendEmail(@Valid MemberEmailRequestDTO memberEmailRequestDTO) throws MessagingException {
         MemberEmailCodeResponseDTO memberEmailCodeResponseDTO = memberEmailService.sendEmail(memberEmailRequestDTO);
         return ApiResponseGenerator.success(memberEmailCodeResponseDTO,HttpStatus.OK);
