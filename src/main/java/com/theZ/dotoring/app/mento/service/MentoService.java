@@ -50,8 +50,7 @@ public class MentoService {
         Mento mento = mentoRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("존재하지 않는 멘토입니다."));
         return mento.getLoginId();
     }
-
-
+    
     @Transactional(readOnly = true)
     public Slice<MentoCardResponseDTO> findAllMentoBySlice(Long lastMentoId, Integer size, MentoFilterCondition mentoFilterCondition){
         PageRequest pageRequest = PageRequest.of(0, size);
