@@ -61,6 +61,9 @@ public class QMenti extends EntityPathBase<Menti> {
     //inherited
     public final StringPath profileImage = _super.profileImage;
 
+    //inherited
+    public final EnumPath<com.theZ.dotoring.app.member.model.UserRole> role = _super.role;
+
     public final StringPath school = createString("school");
 
     //inherited

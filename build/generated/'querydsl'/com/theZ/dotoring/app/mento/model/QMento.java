@@ -64,6 +64,9 @@ public class QMento extends EntityPathBase<Mento> {
     public final StringPath profileImage = _super.profileImage;
 
     //inherited
+    public final EnumPath<com.theZ.dotoring.app.member.model.UserRole> role = _super.role;
+
+    //inherited
     public final EnumPath<com.theZ.dotoring.enums.Status> status = _super.status;
 
     //inherited
