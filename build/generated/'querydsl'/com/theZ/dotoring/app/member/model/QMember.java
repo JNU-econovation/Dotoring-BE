@@ -48,6 +48,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath profileImage = createString("profileImage");
 
+    public final EnumPath<UserRole> role = createEnum("role", UserRole.class);
+
     public final EnumPath<com.theZ.dotoring.enums.Status> status = createEnum("status", com.theZ.dotoring.enums.Status.class);
 
     //inherited

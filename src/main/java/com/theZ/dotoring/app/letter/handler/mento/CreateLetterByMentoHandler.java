@@ -3,6 +3,7 @@ package com.theZ.dotoring.app.letter.handler.mento;
 import com.theZ.dotoring.app.letter.domain.Letter;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberRequestDTO;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberResponseDTO;
+import com.theZ.dotoring.app.letter.dto.LetterFromOutResponseDTO;
 import com.theZ.dotoring.app.letter.mapper.LetterMapper;
 import com.theZ.dotoring.app.letter.service.LetterMentoService;
 import com.theZ.dotoring.app.menti.model.Menti;
@@ -28,7 +29,7 @@ public class CreateLetterByMentoHandler {
     final private RoomService roomService;
 
     @Transactional
-    public LetterByMemberResponseDTO execute(LetterByMemberRequestDTO letterRequestDTO, Long mentoId, Long mentiId){
+    public LetterFromOutResponseDTO execute(LetterByMemberRequestDTO letterRequestDTO, Long mentoId, Long mentiId){
 
         Mento user = mentoService.findMento(mentoId);
 
@@ -38,9 +39,12 @@ public class CreateLetterByMentoHandler {
 
         Letter letter = letterManagementService.sendLetterWhereOut(letterRequestDTO, user, room);
 
-        LetterByMemberResponseDTO letterResponseDTO = LetterMapper.INSTANCE.toDTO(letter, user);
+        LetterMapper.INSTANCE.toDTO(letter, user);
 
-        return letterResponseDTO;
+        LetterFromOutResponseDTO letterFromOutResponseDTO = LetterFromOutResponseDTO.builder()
+                .roomPK(room.getId())
+                .build();
+
+        return letterFromOutResponseDTO;
     }
-
 }

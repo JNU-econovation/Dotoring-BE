@@ -3,6 +3,7 @@ package com.theZ.dotoring.app.letter.controller;
 import com.theZ.dotoring.app.auth.MemberDetails;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberRequestDTO;
 import com.theZ.dotoring.app.letter.dto.LetterByMemberResponseDTO;
+import com.theZ.dotoring.app.letter.dto.LetterFromOutResponseDTO;
 import com.theZ.dotoring.app.letter.handler.mento.CreateLetterByMentoHandler;
 import com.theZ.dotoring.app.letter.handler.mento.CreateMentoLetterByRoomHandler;
 import com.theZ.dotoring.app.letter.handler.mento.GetMentoLetterByRoomHandler;
@@ -35,10 +36,10 @@ public class LetterFromMentoController {
     private final GetMentoLetterByRoomHandler getLettersFromMemberHandler;
 
     @PostMapping("api/mento/letter/out/{mentiId}")
-    public ApiResponse<ApiResponse.CustomBody<Void>> sendLetterWhereOut(@Valid @RequestBody LetterByMemberRequestDTO letterRequestDTO, @AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("mentiId") Long mentiId) {
+    public ApiResponse<ApiResponse.CustomBody<LetterFromOutResponseDTO>> sendLetterWhereOut(@Valid @RequestBody LetterByMemberRequestDTO letterRequestDTO, @AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("mentiId") Long mentiId) {
         // mentoId : 멘토인 내 아이디 -> 시큐리티 도입과 함께 추후 삭제 되어야 함.
-        createLetterMember2MemberHandler.execute(letterRequestDTO, memberDetails.getId(), mentiId);
-        return ApiResponseGenerator.success(HttpStatus.OK);
+        LetterFromOutResponseDTO letterFromOutResponseDTO = createLetterMember2MemberHandler.execute(letterRequestDTO, memberDetails.getId(), mentiId);
+        return ApiResponseGenerator.success(letterFromOutResponseDTO, HttpStatus.OK);
     }
 
     @PostMapping("api/mento/letter/in/{roomPK}")

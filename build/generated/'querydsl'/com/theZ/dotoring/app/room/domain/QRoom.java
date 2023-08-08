@@ -22,7 +22,13 @@ public class QRoom extends EntityPathBase<Room> {
 
     public static final QRoom room = new QRoom("room");
 
-    public final DateTimePath<java.time.LocalDateTime> createAt = createDateTime("createAt", java.time.LocalDateTime.class);
+    public final com.theZ.dotoring.app.commonModel.QCommonEntity _super = new com.theZ.dotoring.app.commonModel.QCommonEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    //inherited
+    public final NumberPath<Long> id = _super.id;
 
     public final DateTimePath<java.time.LocalDateTime> lastSendTime = createDateTime("lastSendTime", java.time.LocalDateTime.class);
 
@@ -30,9 +36,8 @@ public class QRoom extends EntityPathBase<Room> {
 
     public final com.theZ.dotoring.app.member.model.QMember receiver;
 
-    public final NumberPath<Long> roomId = createNumber("roomId", Long.class);
-
-    public final DateTimePath<java.time.LocalDateTime> updatedAt = createDateTime("updatedAt", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final com.theZ.dotoring.app.member.model.QMember writer;
 
