@@ -50,8 +50,8 @@ public class MentiController {
     private final FindMentiPasswordHandler findMentiPasswordHandler;
 
     @PostMapping("/signup-menti")
-    public ApiResponse<ApiResponse.CustomBody<Void>> saveMenti(@RequestPart List<MultipartFile> certifications,@RequestPart @Valid MentiSignupRequestDTO mentiSignupRequestDTO) throws IOException {
-        mentiHandler.execute(mentiSignupRequestDTO,certifications);
+    public ApiResponse<ApiResponse.CustomBody<Void>> saveMenti(@RequestBody @Valid MentiSignupRequestDTO mentiSignupRequestDTO) throws IOException {
+        mentiHandler.execute(mentiSignupRequestDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 

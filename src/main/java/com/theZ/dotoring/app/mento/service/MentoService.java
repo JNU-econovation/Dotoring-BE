@@ -28,7 +28,7 @@ public class MentoService {
     private final MentoQueryRepository mentoQueryRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void saveMento(MentoSignupRequestDTO mentoSignupRequestDTO, List<Certification> certifications){
+    public void saveMento(MentoSignupRequestDTO mentoSignupRequestDTO,List<Certification> certifications){
         Mento mento = Mento.createMento(mentoSignupRequestDTO.getLoginId(), bCryptPasswordEncoder.encode(mentoSignupRequestDTO.getPassword()), mentoSignupRequestDTO.getEmail(), mentoSignupRequestDTO.getNickname(), mentoSignupRequestDTO.getIntroduction(),"basicProfile_47838475947393908393.png",certifications, mentoSignupRequestDTO.getCompany(), mentoSignupRequestDTO.getCareerLevel(), Job.valueOf(mentoSignupRequestDTO.getJob()), Major.valueOf(mentoSignupRequestDTO.getMajor()));
         mentoRepository.save(mento);
     }
