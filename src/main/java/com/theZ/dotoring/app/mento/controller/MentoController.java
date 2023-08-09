@@ -45,12 +45,12 @@ public class MentoController {
     private final FindMentoPasswordHandler findMentoPasswordHandler;
 
     @PostMapping("/signup-mento")
-    public ApiResponse<ApiResponse.CustomBody<Void>> saveMento(@RequestPart List<MultipartFile> certifications ,@RequestPart @Valid MentoSignupRequestDTO mentoSignupRequestDTO) throws IOException {
-        saveMentoHandler.execute(mentoSignupRequestDTO,certifications);
+    public ApiResponse<ApiResponse.CustomBody<Void>> saveMento(//@RequestPart List<MultipartFile> certifications
+                                                               @RequestBody @Valid MentoSignupRequestDTO mentoSignupRequestDTO) throws IOException {
+        saveMentoHandler.execute(mentoSignupRequestDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    @GetMapping("/mento")
     public ApiResponse<ApiResponse.CustomBody<Slice<MentoCardResponseDTO>>> findAllMentoBySlice(
             @RequestParam(required = false) Long lastMentoId, @RequestParam(defaultValue = "10") Integer size, @AuthenticationPrincipal MemberDetails memberDetails,
             @ModelAttribute MentoRequiredCondition mentoRequiredCondition){

@@ -21,7 +21,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Room extends CommonEntity {
+public class  Room extends CommonEntity {
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @Builder.Default
